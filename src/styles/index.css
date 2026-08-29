@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --blood: #e11123;
+  --blood-glow: #ff3b48;
+  --ink: #0a0a0b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%; /* stop mobile Safari auto-zooming text */
+}
+
+/* Prevent iOS zoom-on-focus by keeping inputs >= 16px */
+@media (max-width: 640px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  background-color: var(--ink);
+  color: #f4f4f6;
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Fall back to normal cursor on touch / coarse pointers */
+@media (pointer: coarse) {
+  body {
+    cursor: auto;
+  }
+}
+
+a,
+button {
+  cursor: none;
+}
+@media (pointer: coarse) {
+  a,
+  button {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-16;
+  }
+
+  /* Chrome / brushed-metal text like the logo */
+  .text-chrome {
+    background: linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #d7d7dd 42%,
+      #9a9aa4 55%,
+      #f0f0f4 78%,
+      #ffffff 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  .text-outline {
+    -webkit-text-stroke: 1px rgba(244, 244, 246, 0.28);
+    color: transparent;
+  }
+
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full bg-blood px-8 py-4 font-heading text-sm font-semibold uppercase tracking-[0.18em] text-white transition-transform duration-300 hover:scale-[1.03];
+    box-shadow: 0 0 0 1px rgba(255, 59, 72, 0.4), 0 12px 40px -12px rgba(225, 17, 35, 0.7);
+  }
+
+  .btn-ghost {
+    @apply relative inline-flex items-center justify-center gap-3 rounded-full border border-white/15 px-8 py-4 font-heading text-sm font-semibold uppercase tracking-[0.18em] text-chrome-dim transition-all duration-300 hover:border-blood/60 hover:text-white;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-3 font-heading text-xs font-medium uppercase tracking-ultra text-blood-light;
+  }
+
+  .card-edge {
+    @apply relative overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-800/60 backdrop-blur-sm;
+  }
+}
+
+/* Red laser divider */
+.laser-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(225, 17, 35, 0) 5%,
+    var(--blood) 50%,
+    rgba(225, 17, 35, 0) 95%,
+    transparent
+  );
+  box-shadow: 0 0 12px 1px rgba(225, 17, 35, 0.6);
+}
+
+/* Film grain overlay */
+.grain-overlay::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0b;
+}
+::-webkit-scrollbar-thumb {
+  background: #26262c;
+  border-radius: 10px;
+  border: 2px solid #0a0a0b;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blood-dark, #a80c18);
+}
+
+::selection {
+  background: var(--blood);
+  color: #fff;
+}
+
+/* Marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: marquee 30s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .animate-laser-sweep,
+  .animate-pulse-glow,
+  .animate-float-slow,
+  .animate-scan {
+    animation: none !important;
+  }
+}
