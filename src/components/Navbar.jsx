@@ -1,14 +1,28 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { easeExpo } from '../lib/motion'
 import Magnetic from './Magnetic'
 
+// Primary desktop nav
 const links = [
-  { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
+  { to: '/films', label: 'Films' },
+  { to: '/videos', label: 'Videos' },
   { to: '/services', label: 'Services' },
-  { to: '/work', label: 'Work' },
+  { to: '/news', label: 'News' },
+  { to: '/social', label: 'Social' },
+  { to: '/about', label: 'About' },
+]
+
+// Full list for the mobile menu
+const mobileLinks = [
+  { to: '/', label: 'Home' },
+  { to: '/films', label: 'Films' },
+  { to: '/videos', label: 'Videos' },
+  { to: '/services', label: 'Services' },
+  { to: '/news', label: 'News' },
+  { to: '/social', label: 'Social' },
+  { to: '/about', label: 'About' },
   { to: '/team', label: 'Team' },
   { to: '/contact', label: 'Contact' },
 ]
@@ -17,6 +31,12 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
+
+  const goSearch = () => {
+    setOpen(false)
+    navigate('/search')
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -79,6 +99,13 @@ export default function Navbar() {
                 )}
               </NavLink>
             ))}
+            <button
+              onClick={goSearch}
+              aria-label="Search"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-chrome-dim transition-colors hover:border-blood/60 hover:text-white"
+            >
+              ⌕
+            </button>
             <Magnetic strength={0.5}>
               <Link to="/contact" className="btn-primary !px-6 !py-3 !text-xs">
                 Start a Project
@@ -86,12 +113,20 @@ export default function Navbar() {
             </Magnetic>
           </nav>
 
-          {/* Mobile toggle */}
-          <button
-            onClick={() => setOpen((v) => !v)}
-            className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-[6px] lg:hidden"
-            aria-label="Toggle menu"
-          >
+          {/* Mobile controls */}
+          <div className="flex items-center gap-1 lg:hidden">
+            <button
+              onClick={goSearch}
+              aria-label="Search"
+              className="relative z-50 flex h-10 w-10 items-center justify-center text-xl text-white"
+            >
+              ⌕
+            </button>
+            <button
+              onClick={() => setOpen((v) => !v)}
+              className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-[6px]"
+              aria-label="Toggle menu"
+            >
             <span
               className={`h-[2px] w-7 bg-white transition-all duration-300 ${open ? 'translate-y-[8px] rotate-45' : ''}`}
             />
@@ -101,7 +136,8 @@ export default function Navbar() {
             <span
               className={`h-[2px] w-7 bg-white transition-all duration-300 ${open ? '-translate-y-[8px] -rotate-45' : ''}`}
             />
-          </button>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -116,26 +152,35 @@ export default function Navbar() {
             className="fixed inset-0 z-40 flex flex-col justify-center bg-ink lg:hidden"
           >
             <div className="absolute inset-0 bg-grain opacity-[0.05]" />
-            <nav className="container-x relative flex flex-col gap-2">
-              {links.map((l, i) => (
+            <nav className="container-x relative flex max-h-[85vh] flex-col gap-1 overflow-y-auto py-20">
+              {mobileLinks.map((l, i) => (
                 <motion.div
                   key={l.to}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + i * 0.07, duration: 0.6, ease: easeExpo }}
+                  transition={{ delay: 0.05 + i * 0.05, duration: 0.5, ease: easeExpo }}
                 >
                   <Link
                     to={l.to}
-                    className="group flex items-baseline gap-4 py-2"
+                    className="group flex items-baseline gap-4 py-1.5"
                     onClick={() => setOpen(false)}
                   >
                     <span className="font-heading text-xs text-blood">0{i + 1}</span>
-                    <span className="font-display text-5xl uppercase tracking-tight text-chrome transition-colors group-hover:text-blood sm:text-6xl">
+                    <span className="font-display text-4xl uppercase tracking-tight text-chrome transition-colors group-hover:text-blood sm:text-5xl">
                       {l.label}
                     </span>
                   </Link>
                 </motion.div>
               ))}
+              <motion.button
+                onClick={goSearch}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.5, ease: easeExpo }}
+                className="mt-6 flex items-center gap-3 font-heading text-sm uppercase tracking-[0.18em] text-chrome-dim"
+              >
+                <span className="text-lg text-blood">⌕</span> Search the studio
+              </motion.button>
             </nav>
           </motion.div>
         )}

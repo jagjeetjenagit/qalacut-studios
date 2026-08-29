@@ -4,21 +4,21 @@ import Magnetic from './Magnetic'
 
 const columns = [
   {
+    title: 'Explore',
+    links: [
+      { to: '/films', label: 'Films' },
+      { to: '/videos', label: 'Videos' },
+      { to: '/news', label: 'News & Events' },
+      { to: '/social', label: 'Social' },
+    ],
+  },
+  {
     title: 'Studio',
     links: [
       { to: '/about', label: 'About' },
       { to: '/services', label: 'Services' },
-      { to: '/work', label: 'Work' },
       { to: '/team', label: 'Team' },
-    ],
-  },
-  {
-    title: 'Services',
-    links: [
-      { to: '/services', label: 'Editorial' },
-      { to: '/services', label: 'Color Grading' },
-      { to: '/services', label: 'Sound Design' },
-      { to: '/services', label: 'VFX & CGI' },
+      { to: '/contact', label: 'Contact' },
     ],
   },
 ]

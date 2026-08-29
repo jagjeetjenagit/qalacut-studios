@@ -1,14 +1,62 @@
-// Placeholder portfolio. Swap `poster`/`video` with real assets in /public later.
+// Placeholder film catalogue. Swap `poster`/`thumb` with real assets in /public later.
 // Images use Picsum (seeded) so the layout looks real out of the box.
 const img = (seed, w = 1200, h = 800) => `https://picsum.photos/seed/${seed}/${w}/${h}`
 
 export const categories = ['All', 'Film', 'Series', 'Commercial', 'Music Video', 'Documentary']
 
 export const projects = [
+  // ---------------- UPCOMING ----------------
+  {
+    slug: 'the-vanishing-hour',
+    title: 'The Vanishing Hour',
+    category: 'Film',
+    status: 'upcoming',
+    releaseDate: '14 Feb 2027',
+    client: 'Meridian Pictures',
+    year: '2027',
+    services: ['Editorial', 'Color Grading', 'VFX & CGI', 'Sound Design'],
+    tagline: 'A psychological thriller that plays with time itself.',
+    poster: img('vanishing', 1600, 1000),
+    thumb: img('vanishing', 1200, 1500),
+    accent: '#e11123',
+    summary:
+      'Currently in post at QalaCut - a mind-bending thriller receiving a full finishing pass across editorial, color, VFX and a Dolby Atmos mix.',
+    gallery: [img('vanishing-a'), img('vanishing-b'), img('vanishing-c')],
+    stats: [
+      { label: 'Status', value: 'In Post' },
+      { label: 'Format', value: '4K HDR' },
+      { label: 'Release', value: 'Feb 2027' },
+    ],
+  },
+  {
+    slug: 'ember-city',
+    title: 'Ember City',
+    category: 'Series',
+    status: 'upcoming',
+    releaseDate: 'Coming 2027',
+    client: 'StreamNine Originals',
+    year: '2027',
+    services: ['Color Grading', 'VFX & CGI', 'DI & Finishing'],
+    tagline: 'A neo-noir series igniting next year.',
+    poster: img('ember', 1600, 1000),
+    thumb: img('ember', 1200, 1500),
+    accent: '#ff6a1a',
+    summary:
+      'A ten-part streaming series in active finishing - bold look development, heavy VFX and full OTT mastering underway.',
+    gallery: [img('ember-a'), img('ember-b'), img('ember-c')],
+    stats: [
+      { label: 'Status', value: 'Grading' },
+      { label: 'Episodes', value: '10' },
+      { label: 'Release', value: '2027' },
+    ],
+  },
+
+  // ---------------- RELEASED ----------------
   {
     slug: 'echoes-of-dust',
     title: 'Echoes of Dust',
     category: 'Film',
+    status: 'released',
     client: 'Meridian Pictures',
     year: '2026',
     services: ['Editorial', 'Color Grading', 'Sound Design'],
@@ -29,6 +77,7 @@ export const projects = [
     slug: 'neon-monsoon',
     title: 'Neon Monsoon',
     category: 'Series',
+    status: 'released',
     client: 'StreamNine Originals',
     year: '2025',
     services: ['Color Grading', 'VFX & CGI', 'DI & Finishing'],
@@ -40,7 +89,7 @@ export const projects = [
       'A stylised streaming series demanding a bold, saturated look. We developed a signature neon-noir grade, delivered 320+ VFX shots and mastered all eight episodes for global OTT.',
     gallery: [img('neon-a'), img('neon-b'), img('neon-c')],
     stats: [
-      { label: 'Episodes', value: '8 × 45 min' },
+      { label: 'Episodes', value: '8 x 45 min' },
       { label: 'VFX shots', value: '320+' },
       { label: 'Delivery', value: 'Global OTT' },
     ],
@@ -49,6 +98,7 @@ export const projects = [
     slug: 'kinetic',
     title: 'Kinetic',
     category: 'Commercial',
+    status: 'released',
     client: 'Volt Automotive',
     year: '2026',
     services: ['Editorial', 'Motion Graphics', 'Color Grading'],
@@ -69,6 +119,7 @@ export const projects = [
     slug: 'silent-tide',
     title: 'Silent Tide',
     category: 'Documentary',
+    status: 'released',
     client: 'Blue Horizon Films',
     year: '2025',
     services: ['Editorial', 'Sound Design', 'Color Grading'],
@@ -89,6 +140,7 @@ export const projects = [
     slug: 'afterglow',
     title: 'Afterglow',
     category: 'Music Video',
+    status: 'released',
     client: 'ALYA',
     year: '2026',
     services: ['Editorial', 'VFX & CGI', 'Color Grading'],
@@ -109,6 +161,8 @@ export const projects = [
     slug: 'the-long-game',
     title: 'The Long Game',
     category: 'Film',
+    status: 'released',
+    distribution: true,
     client: 'Northgate Studios',
     year: '2024',
     services: ['Color Grading', 'DI & Finishing', 'Sound Design'],
@@ -125,6 +179,32 @@ export const projects = [
       { label: 'Delivery', value: 'Theatrical DCP' },
     ],
   },
+  {
+    slug: 'paper-lanterns',
+    title: 'Paper Lanterns',
+    category: 'Film',
+    status: 'released',
+    distribution: true,
+    client: 'Lumen Arthouse',
+    year: '2023',
+    services: ['Color Grading', 'DI & Finishing'],
+    tagline: 'A tender festival darling, delicately finished.',
+    poster: img('lanterns', 1600, 1000),
+    thumb: img('lanterns', 1200, 1500),
+    accent: '#e5a23c',
+    summary:
+      'An intimate indie drama distributed after a delicate grade and clean finishing pass that preserved its natural, candlelit palette.',
+    gallery: [img('lanterns-a'), img('lanterns-b'), img('lanterns-c')],
+    stats: [
+      { label: 'Runtime', value: '101 min' },
+      { label: 'Format', value: '2K DCP' },
+      { label: 'Festivals', value: '9 official' },
+    ],
+  },
 ]
+
+export const upcomingProjects = projects.filter((p) => p.status === 'upcoming')
+export const releasedProjects = projects.filter((p) => p.status !== 'upcoming' && !p.distribution)
+export const distributionProjects = projects.filter((p) => p.distribution)
 
 export const getProject = (slug) => projects.find((p) => p.slug === slug)

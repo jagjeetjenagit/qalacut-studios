@@ -17,7 +17,7 @@ export default function WorkDetail() {
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.12])
 
-  if (!project) return <Navigate to="/work" replace />
+  if (!project) return <Navigate to="/films" replace />
 
   const idx = projects.findIndex((p) => p.slug === slug)
   const next = projects[(idx + 1) % projects.length]
@@ -38,7 +38,7 @@ export default function WorkDetail() {
 
         <div className="container-x relative flex h-full flex-col justify-end pb-16">
           <Link
-            to="/work"
+            to="/films"
             className="mb-8 inline-flex items-center gap-2 font-heading text-xs uppercase tracking-ultra text-chrome-dim transition-colors hover:text-blood"
           >
             ← Back to Work
@@ -150,7 +150,7 @@ export default function WorkDetail() {
       {/* Next project */}
       <section className="relative border-t border-white/5">
         <Link
-          to={`/work/${next.slug}`}
+          to={`/films/${next.slug}`}
           className="group container-x flex flex-col items-center gap-4 py-24 text-center"
           data-cursor="hover"
         >

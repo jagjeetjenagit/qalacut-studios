@@ -9,6 +9,7 @@ import Marquee from '../components/Marquee'
 import SectionHeading from '../components/SectionHeading'
 import { services } from '../data/services'
 import { projects } from '../data/projects'
+import { news, formatDate } from '../data/news'
 import { stagger, fadeUp, maskUp, easeExpo } from '../lib/motion'
 
 /* ---------- HERO ---------- */
@@ -150,7 +151,7 @@ function Hero() {
           className="mt-8 flex w-full flex-col items-center justify-center gap-3 px-6 sm:w-auto sm:flex-row sm:gap-4 md:mt-10"
         >
           <Magnetic strength={0.4} className="w-full sm:w-auto">
-            <Link to="/work" className="btn-primary w-full sm:w-auto">
+            <Link to="/films" className="btn-primary w-full sm:w-auto">
               View Our Reel <span aria-hidden>▶</span>
             </Link>
           </Magnetic>
@@ -306,8 +307,8 @@ function FeaturedWork() {
         <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <SectionHeading eyebrow="Selected Work" title="Recent finishes." accentWord="finishes." />
           <Reveal>
-            <Link to="/work" className="btn-ghost">
-              View All Work
+            <Link to="/films" className="btn-ghost">
+              View All Films
             </Link>
           </Reveal>
         </div>
@@ -316,7 +317,7 @@ function FeaturedWork() {
           {featured.map((p, i) => (
             <Reveal key={p.slug} delay={(i % 2) * 0.1}>
               <Link
-                to={`/work/${p.slug}`}
+                to={`/films/${p.slug}`}
                 className={`group card-edge block ${i % 3 === 0 ? 'md:mt-0' : 'md:mt-12'}`}
                 data-cursor="hover"
               >
@@ -394,6 +395,55 @@ function Process() {
   )
 }
 
+/* ---------- LATEST NEWS ---------- */
+function LatestNews() {
+  const latest = [...news].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3)
+  return (
+    <section className="relative py-16 md:py-36">
+      <div className="container-x">
+        <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+          <SectionHeading eyebrow="News & Events" title="Latest from the studio." accentWord="studio." />
+          <Reveal>
+            <Link to="/news" className="btn-ghost">
+              All News
+            </Link>
+          </Reveal>
+        </div>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          {latest.map((n, i) => (
+            <Reveal key={n.slug} delay={i * 0.08}>
+              <Link to={`/news/${n.slug}`} className="group card-edge block h-full" data-cursor="hover">
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img
+                    src={n.image}
+                    alt={n.title}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/80 to-transparent" />
+                </div>
+                <div className="p-6">
+                  <div className="mb-3 flex items-center gap-3">
+                    <span className="rounded-full border border-blood/40 px-3 py-1 text-[10px] uppercase tracking-wider text-blood-light">
+                      {n.category}
+                    </span>
+                    <span className="font-heading text-xs uppercase tracking-ultra text-chrome-dark">
+                      {formatDate(n.date)}
+                    </span>
+                  </div>
+                  <h3 className="font-heading text-lg font-medium uppercase leading-tight tracking-wide text-chrome transition-colors group-hover:text-blood">
+                    {n.title}
+                  </h3>
+                </div>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function Home() {
   return (
     <PageWrapper>
@@ -408,6 +458,7 @@ export default function Home() {
         <ServicesPreview />
         <FeaturedWork />
         <Process />
+        <LatestNews />
       </div>
     </PageWrapper>
   )

@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 
@@ -12,11 +12,22 @@ import Loader from './components/Loader'
 import Home from './pages/Home'
 import About from './pages/About'
 import Services from './pages/Services'
-import Work from './pages/Work'
+import Films from './pages/Films'
 import WorkDetail from './pages/WorkDetail'
+import Videos from './pages/Videos'
+import News from './pages/News'
+import NewsDetail from './pages/NewsDetail'
+import Social from './pages/Social'
+import Search from './pages/Search'
 import Team from './pages/Team'
 import Contact from './pages/Contact'
 import NotFound from './pages/NotFound'
+
+// Redirect old /work/:slug links to the new /films/:slug route
+function WorkSlugRedirect() {
+  const { slug } = useParams()
+  return <Navigate to={`/films/${slug}`} replace />
+}
 
 export default function App() {
   const location = useLocation()
@@ -37,10 +48,18 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/services" element={<Services />} />
-              <Route path="/work" element={<Work />} />
-              <Route path="/work/:slug" element={<WorkDetail />} />
+              <Route path="/films" element={<Films />} />
+              <Route path="/films/:slug" element={<WorkDetail />} />
+              <Route path="/videos" element={<Videos />} />
+              <Route path="/news" element={<News />} />
+              <Route path="/news/:slug" element={<NewsDetail />} />
+              <Route path="/social" element={<Social />} />
+              <Route path="/search" element={<Search />} />
               <Route path="/team" element={<Team />} />
               <Route path="/contact" element={<Contact />} />
+              {/* Legacy redirects */}
+              <Route path="/work" element={<Navigate to="/films" replace />} />
+              <Route path="/work/:slug" element={<WorkSlugRedirect />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>
