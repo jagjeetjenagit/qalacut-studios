@@ -57,8 +57,8 @@ export default function Footer() {
               Qala<span className="text-blood">Cut</span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-chrome-dark">
-              A premium post-production studio. Editorial, color, sound, VFX and finishing  - 
-              where the final cut becomes cinema.
+              A premium post-production studio. Editorial, color, sound, VFX and
+              finishing, where the final cut becomes cinema.
             </p>
           </div>
 

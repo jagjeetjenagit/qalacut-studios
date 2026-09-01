@@ -9,11 +9,11 @@ export const news = [
     category: 'Premiere',
     image: img('news-echoes', 1200, 800),
     excerpt:
-      'The desert noir we finished earlier this year opened to a rapturous festival crowd - here is what the QalaCut team poured into the final cut.',
+      'The desert noir we finished earlier this year opened to a rapturous festival crowd. Here is what the QalaCut team poured into the final cut.',
     body: [
       'Echoes of Dust had its world premiere last night, and the reaction to its scorched, ink-black grade and immersive sound design was everything the team hoped for.',
       'Our colorists spent six weeks developing a look that could hold both blistering desert daylight and near-total darkness without losing detail, while the sound team built a landscape of wind, dust and silence that lets the tension breathe.',
-      'It is the kind of project that reminds us why the final 10% matters so much - and we could not be prouder of how it landed.',
+      'It is the kind of project that reminds us why the final 10% matters so much, and we could not be prouder of how it landed.',
     ],
   },
   {
@@ -41,7 +41,7 @@ export const news = [
     body: [
       'Neon Monsoon has been shortlisted in both the color grading and visual effects categories at this year is craft awards.',
       'The eight-part series pushed our look development and compositing teams to deliver a bold, rain-soaked world across every episode.',
-      'Winners are announced in the autumn - fingers crossed.',
+      'Winners are announced in the autumn. Fingers crossed.',
     ],
   },
   {

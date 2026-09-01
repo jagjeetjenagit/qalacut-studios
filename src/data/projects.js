@@ -20,7 +20,7 @@ export const projects = [
     thumb: img('vanishing', 1200, 1500),
     accent: '#e11123',
     summary:
-      'Currently in post at QalaCut - a mind-bending thriller receiving a full finishing pass across editorial, color, VFX and a Dolby Atmos mix.',
+      'Currently in post at QalaCut, a mind-bending thriller receiving a full finishing pass across editorial, color, VFX and a Dolby Atmos mix.',
     gallery: [img('vanishing-a'), img('vanishing-b'), img('vanishing-c')],
     stats: [
       { label: 'Status', value: 'In Post' },
@@ -42,7 +42,7 @@ export const projects = [
     thumb: img('ember', 1200, 1500),
     accent: '#ff6a1a',
     summary:
-      'A ten-part streaming series in active finishing - bold look development, heavy VFX and full OTT mastering underway.',
+      'A ten-part streaming series in active finishing, with bold look development, heavy VFX and full OTT mastering underway.',
     gallery: [img('ember-a'), img('ember-b'), img('ember-c')],
     stats: [
       { label: 'Status', value: 'Grading' },

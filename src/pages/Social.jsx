@@ -21,7 +21,7 @@ export default function Social() {
         eyebrow="Social & Community"
         title="Come behind the cut."
         accentWord="cut."
-        subtitle="Entertainment, interaction and craft - we bring you the best of the QalaCut family."
+        subtitle="Entertainment, interaction and craft. We bring you the best of the QalaCut family."
       />
 
       {/* Social links */}

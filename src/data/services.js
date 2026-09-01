@@ -6,7 +6,7 @@ export const services = [
     tag: 'Story & Rhythm',
     short: 'Narrative editing that finds the pulse of every frame.',
     description:
-      'From dailies to locked cut, our editors shape rhythm, tension and emotion. Feature films, series, commercials and long-form documentary - we cut for story first.',
+      'From dailies to locked cut, our editors shape rhythm, tension and emotion. Feature films, series, commercials and long-form documentary. We cut for story first.',
     capabilities: [
       'Offline & online editing',
       'Trailer & promo cutting',
@@ -21,7 +21,7 @@ export const services = [
     tag: 'Look & Mood',
     short: 'Cinematic color that gives your film its signature.',
     description:
-      'DaVinci Resolve suites and calibrated reference monitoring. We build looks, match shots and deliver in HDR & SDR - a grade that carries the emotion of the frame.',
+      'DaVinci Resolve suites and calibrated reference monitoring. We build looks, match shots and deliver in HDR & SDR. A grade that carries the emotion of the frame.',
     capabilities: ['HDR / Dolby Vision', 'Look development', 'Shot matching', 'Conform & finishing'],
   },
   {

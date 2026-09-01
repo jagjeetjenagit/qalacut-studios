@@ -142,7 +142,7 @@ function Hero() {
         >
           <Magnetic strength={0.4} className="w-full sm:w-auto">
             <Link to="/films" className="btn-primary w-full sm:w-auto">
-              View Our Reel <span aria-hidden>▶</span>
+              View Our Portfolio <span aria-hidden>▶</span>
             </Link>
           </Magnetic>
           <Magnetic strength={0.4} className="w-full sm:w-auto">
@@ -218,7 +218,7 @@ function Intro() {
           <Reveal>
             <p className="text-lg leading-relaxed text-chrome-dim">
               QalaCut is a post-production studio built by editors, colorists and
-              sound designers who are obsessed with the final 10% - the part that
+              sound designers who are obsessed with the final 10%. The part that
               separates good from unforgettable.
             </p>
           </Reveal>
@@ -229,16 +229,72 @@ function Intro() {
               agencies and studios to give their stories the finish they deserve.
             </p>
           </Reveal>
-          <Reveal delay={0.2}>
-            <Magnetic strength={0.3}>
-              <Link
-                to="/about"
-                className="group inline-flex items-center gap-3 font-heading text-sm uppercase tracking-[0.18em] text-white"
-              >
-                <span className="h-px w-8 bg-blood transition-all duration-300 group-hover:w-14" />
-                More about the studio
-              </Link>
-            </Magnetic>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ---------- FOUNDER / OWNER ---------- */
+function Founder() {
+  return (
+    <section className="relative overflow-hidden border-t border-white/5 py-16 md:py-36">
+      {/* ambient glow */}
+      <div className="pointer-events-none absolute -left-40 top-1/2 h-[55vh] w-[55vh] -translate-y-1/2 rounded-full bg-blood/10 blur-[170px]" />
+      <div className="pointer-events-none absolute inset-0 bg-grain opacity-[0.05]" />
+
+      <div className="container-x grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-16">
+        {/* Portrait */}
+        <Reveal className="lg:col-span-5">
+          <div className="relative mx-auto max-w-md">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-white/10">
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80"
+                alt="Founder portrait"
+                loading="lazy"
+                className="h-full w-full object-cover grayscale transition-all duration-700 hover:grayscale-0"
+                style={{ filter: 'contrast(1.05) brightness(0.9)' }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+            </div>
+            {/* cinematic frame accents */}
+            <div className="absolute -bottom-4 -right-4 h-24 w-24 border-b-2 border-r-2 border-blood/70" />
+            <div className="absolute -left-4 -top-4 h-24 w-24 border-l-2 border-t-2 border-white/15" />
+          </div>
+        </Reveal>
+
+        {/* Note */}
+        <div className="lg:col-span-6 lg:col-start-7">
+          <SectionHeading
+            eyebrow="From the Founder"
+            title="A studio built on obsession."
+            accentWord="obsession."
+          />
+          <Reveal delay={0.1}>
+            <p className="mt-8 font-display text-2xl leading-snug text-chrome md:text-3xl">
+              &ldquo;We don&rsquo;t hand back a file. We hand back the version of
+              your film you always heard in your head.&rdquo;
+            </p>
+          </Reveal>
+          <Reveal delay={0.18}>
+            <p className="mt-6 leading-relaxed text-chrome-dark">
+              I started QalaCut because the last mile of a film deserves the same
+              fire as the first frame. Every project that leaves this studio
+              carries the whole team&rsquo;s craft, and my name behind it.
+            </p>
+          </Reveal>
+          <Reveal delay={0.26}>
+            <div className="mt-10 flex items-center gap-5">
+              <span className="h-px w-12 bg-blood" />
+              <div>
+                <p className="font-heading text-lg uppercase tracking-wide text-chrome">
+                  Founder Name
+                </p>
+                <p className="font-heading text-xs uppercase tracking-ultra text-chrome-dark">
+                  Founder &amp; Creative Director
+                </p>
+              </div>
+            </div>
           </Reveal>
         </div>
       </div>
@@ -481,6 +537,8 @@ export default function Home() {
         />
         {/* 4. Who we are */}
         <Intro />
+        {/* 4b. From the founder */}
+        <Founder />
         {/* 5. Recent finishes - Netflix-style portfolio */}
         <PortfolioRow />
         {/* 6. 250+ finished / 18 awards */}

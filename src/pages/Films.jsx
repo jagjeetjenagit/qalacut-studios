@@ -89,7 +89,7 @@ export default function Films() {
         eyebrow="Our Films"
         title="Every frame, finished."
         accentWord="finished."
-        subtitle="Features, series, commercials and music videos finished at QalaCut - graded, mixed and mastered in-house."
+        subtitle="Features, series, commercials and music videos finished at QalaCut, graded, mixed and mastered in-house."
       />
 
       {/* Search */}

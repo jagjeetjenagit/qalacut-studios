@@ -50,7 +50,7 @@ export default function Team() {
         eyebrow="The People"
         title="Artists behind the cut."
         accentWord="cut."
-        subtitle="A tight crew of editors, colorists, mixers and VFX artists - each obsessed with a different piece of the final frame."
+        subtitle="A tight crew of editors, colorists, mixers and VFX artists, each obsessed with a different piece of the final frame."
       />
 
       <section className="container-x pb-24 md:pb-32">
@@ -70,7 +70,7 @@ export default function Team() {
               <p className="text-lg leading-relaxed text-chrome-dim">
                 We're always looking for artists who sweat the details. If you
                 live for a clean timeline, a perfect grade or a mix that hits in
-                the chest - send us your reel.
+                the chest, send us your reel.
               </p>
             </Reveal>
             <Reveal delay={0.1}>

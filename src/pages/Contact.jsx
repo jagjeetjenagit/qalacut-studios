@@ -30,7 +30,7 @@ export default function Contact() {
         eyebrow="Contact"
         title="Let's cut something great."
         accentWord="great."
-        subtitle="Tell us about your project. Send a link to your footage, a brief, or just a bold idea - we'll take it from there."
+        subtitle="Tell us about your project. Send a link to your footage, a brief, or just a bold idea. We'll take it from there."
       />
 
       <section className="container-x grid grid-cols-1 gap-16 pb-28 lg:grid-cols-12">

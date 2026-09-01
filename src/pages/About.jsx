@@ -14,7 +14,7 @@ const values = [
   {
     n: '02',
     title: 'Obsessive Finish',
-    text: 'We live for the final 10% - the frame-accurate polish most never notice, but everyone feels.',
+    text: 'We live for the final 10%. The frame-accurate polish most never notice, but everyone feels.',
   },
   {
     n: '03',
@@ -24,7 +24,7 @@ const values = [
   {
     n: '04',
     title: 'Future-Ready',
-    text: 'HDR, Atmos, virtual production, AI-assisted workflows - we adopt what elevates the work.',
+    text: 'HDR, Atmos, virtual production, AI-assisted workflows. We adopt what elevates the work.',
   },
 ]
 
@@ -43,7 +43,7 @@ export default function About() {
         eyebrow="About the Studio"
         title="We finish what others start."
         accentWord="finish"
-        subtitle="QalaCut is a post-production house where editors, colorists, sound designers and VFX artists share one obsession - making the final cut unforgettable."
+        subtitle="QalaCut is a post-production house where editors, colorists, sound designers and VFX artists share one obsession: making the final cut unforgettable."
       />
 
       {/* Manifesto */}
@@ -55,7 +55,7 @@ export default function About() {
           <div className="space-y-8 lg:col-span-7 lg:col-start-6">
             <Reveal>
               <p className="text-xl leading-relaxed text-chrome-dim md:text-2xl">
-                Post-production is where a film is truly made - or lost. It's the
+                Post-production is where a film is truly made, or lost. It's the
                 unseen labour behind every goosebump, every held breath, every
                 cut that lands exactly when it should.
               </p>
@@ -64,7 +64,7 @@ export default function About() {
               <p className="leading-relaxed text-chrome-dark">
                 We built QalaCut to be the room directors trust with that
                 responsibility. A place where technology, taste and stamina
-                converge to give stories the finish they deserve - quietly,
+                converge to give stories the finish they deserve: quietly,
                 precisely, and without ego.
               </p>
             </Reveal>

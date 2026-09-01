@@ -17,7 +17,7 @@ export const videoGroups = [
       { id: 'ed1', title: 'Official Trailer', type: 'Trailer', duration: '2:14', youtubeId: demoId(0), thumb: thumb('ed-trailer') },
       { id: 'ed2', title: 'Teaser', type: 'Teaser', duration: '0:48', youtubeId: demoId(1), thumb: thumb('ed-teaser') },
       { id: 'ed3', title: 'Grading Breakdown', type: 'Breakdown', duration: '3:30', youtubeId: demoId(2), thumb: thumb('ed-grade') },
-      { id: 'ed4', title: 'On the Cut - BTS', type: 'Behind the Scenes', duration: '5:02', youtubeId: demoId(0), thumb: thumb('ed-bts') },
+      { id: 'ed4', title: 'On the Cut: BTS', type: 'Behind the Scenes', duration: '5:02', youtubeId: demoId(0), thumb: thumb('ed-bts') },
     ],
   },
   {
@@ -51,7 +51,7 @@ export const videoGroups = [
     slug: 'the-long-game',
     videos: [
       { id: 'lg1', title: 'Theatrical Trailer', type: 'Trailer', duration: '2:30', youtubeId: demoId(1), thumb: thumb('lg-trailer') },
-      { id: 'lg2', title: 'Final Mix - BTS', type: 'Behind the Scenes', duration: '6:10', youtubeId: demoId(0), thumb: thumb('lg-mix') },
+      { id: 'lg2', title: 'Final Mix: BTS', type: 'Behind the Scenes', duration: '6:10', youtubeId: demoId(0), thumb: thumb('lg-mix') },
     ],
   },
 ]

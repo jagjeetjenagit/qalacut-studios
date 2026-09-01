@@ -63,7 +63,7 @@ export default function Services() {
         eyebrow="Our Services"
         title="Every craft under one roof."
         accentWord="craft"
-        subtitle="Six disciplines, one seamless pipeline. Bring us a single service or hand us the whole post-production chain - either way, it ships flawless."
+        subtitle="Six disciplines, one seamless pipeline. Bring us a single service or hand us the whole post-production chain. Either way, it ships flawless."
       />
 
       <section className="relative">
