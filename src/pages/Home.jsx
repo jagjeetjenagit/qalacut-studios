@@ -10,7 +10,7 @@ import SectionHeading from '../components/SectionHeading'
 import { services } from '../data/services'
 import { projects } from '../data/projects'
 import { news, formatDate } from '../data/news'
-import { stagger, fadeUp, maskUp, easeExpo } from '../lib/motion'
+import { stagger, maskUp } from '../lib/motion'
 
 /* ---------- HERO ---------- */
 // Full-bleed crossfading film-still montage with slow zoom (Ken Burns).
@@ -59,7 +59,6 @@ function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '25%'])
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.12])
   const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0])
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '80%'])
 
   return (
     <section ref={ref} className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
@@ -74,9 +73,9 @@ function Hero() {
         <div className="absolute left-1/2 top-1/2 h-[60vh] w-[85vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blood/10 blur-[150px]" />
       </motion.div>
 
-      {/* Content */}
+      {/* Content - stays fixed in place, does not travel with scroll */}
       <motion.div
-        style={{ opacity, y: textY }}
+        style={{ opacity }}
         className="container-x relative z-10 flex h-full flex-col items-center justify-center text-center"
       >
         <motion.span
@@ -90,7 +89,7 @@ function Hero() {
           <span className="inline-block h-px w-10 bg-blood" />
         </motion.span>
 
-        {/* One-line wordmark with laser slash - QALA + C(red) + UT */}
+        {/* One-line wordmark - QALA + C(red) + UT */}
         <div className="relative">
           <motion.h1
             variants={stagger(0.05, 0.5)}
@@ -114,15 +113,6 @@ function Hero() {
               </motion.span>
             </span>
           </motion.h1>
-
-          {/* laser slash across the wordmark (like the logo) */}
-          <motion.span
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.9, ease: easeExpo }}
-            className="pointer-events-none absolute left-[-6%] top-1/2 h-[3px] w-[112%] origin-left -translate-y-1/2 -rotate-[7deg] bg-gradient-to-r from-transparent via-blood to-transparent"
-            style={{ boxShadow: '0 0 22px 3px rgba(225,17,35,0.9)' }}
-          />
         </div>
 
         <motion.span
@@ -298,58 +288,91 @@ function ServicesPreview() {
   )
 }
 
-/* ---------- FEATURED WORK ---------- */
-function FeaturedWork() {
-  const featured = projects.slice(0, 4)
+/* ---------- PORTFOLIO (NETFLIX-STYLE ROW) ---------- */
+function PortfolioRow() {
+  const scrollerRef = useRef(null)
+  // duplicate a couple so the row always feels full/scrollable
+  const items = projects
+
+  const scrollBy = (dir) => {
+    const el = scrollerRef.current
+    if (!el) return
+    const amount = Math.min(el.clientWidth * 0.8, 640)
+    el.scrollBy({ left: dir * amount, behavior: 'smooth' })
+  }
+
   return (
-    <section className="relative py-16 md:py-36">
-      <div className="container-x">
-        <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading eyebrow="Selected Work" title="Recent finishes." accentWord="finishes." />
-          <Reveal>
+    <section className="relative py-16 md:py-28">
+      <div className="container-x mb-8 flex flex-col items-start justify-between gap-6 md:mb-10 md:flex-row md:items-end">
+        <SectionHeading eyebrow="View Our Portfolio" title="Recent finishes." accentWord="finishes." />
+        <Reveal>
+          <div className="flex items-center gap-4">
+            {/* arrow controls, Netflix-style */}
+            <div className="hidden items-center gap-2 md:flex">
+              <button
+                type="button"
+                aria-label="Scroll left"
+                onClick={() => scrollBy(-1)}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-chrome-dim transition-colors hover:border-blood hover:text-blood"
+              >
+                ‹
+              </button>
+              <button
+                type="button"
+                aria-label="Scroll right"
+                onClick={() => scrollBy(1)}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-chrome-dim transition-colors hover:border-blood hover:text-blood"
+              >
+                ›
+              </button>
+            </div>
             <Link to="/films" className="btn-ghost">
               View All Films
             </Link>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
+      </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {featured.map((p, i) => (
-            <Reveal key={p.slug} delay={(i % 2) * 0.1}>
-              <Link
-                to={`/films/${p.slug}`}
-                className={`group card-edge block ${i % 3 === 0 ? 'md:mt-0' : 'md:mt-12'}`}
-                data-cursor="hover"
-              >
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <img
-                    src={p.poster}
-                    alt={p.title}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent opacity-80" />
-                  <span
-                    className="absolute left-5 top-5 rounded-full border border-white/20 bg-ink/50 px-3 py-1 font-heading text-[10px] uppercase tracking-ultra text-chrome backdrop-blur-sm"
-                  >
-                    {p.category}
-                  </span>
-                </div>
-                <div className="flex items-end justify-between p-6">
-                  <div>
-                    <h3 className="font-display text-3xl uppercase tracking-tight text-chrome transition-colors group-hover:text-blood md:text-4xl">
-                      {p.title}
-                    </h3>
-                    <p className="mt-1 text-sm text-chrome-dark">
-                      {p.client} · {p.year}
-                    </p>
-                  </div>
-                  <span className="text-xl text-chrome-dark transition-all duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-blood">
-                    ↗
-                  </span>
-                </div>
-              </Link>
-            </Reveal>
+      {/* the row itself - full-bleed, horizontally scrollable with snap */}
+      <div className="relative">
+        {/* edge fades */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-ink to-transparent md:w-20" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-ink to-transparent md:w-20" />
+
+        <div
+          ref={scrollerRef}
+          className="no-scrollbar mx-auto flex max-w-[1440px] snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 md:gap-5 md:px-10 lg:px-16"
+          style={{ scrollbarWidth: 'none' }}
+        >
+          {items.map((p) => (
+            <Link
+              key={p.slug}
+              to={`/films/${p.slug}`}
+              data-cursor="hover"
+              className="group relative aspect-[2/3] w-[62vw] flex-none snap-start overflow-hidden rounded-md border border-white/8 transition-transform duration-500 will-change-transform hover:z-20 hover:scale-[1.04] sm:w-[38vw] md:w-[300px] lg:w-[340px]"
+            >
+              <img
+                src={p.thumb}
+                alt={p.title}
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
+              />
+              {/* category chip */}
+              <span className="absolute left-3 top-3 rounded-full border border-white/20 bg-ink/50 px-3 py-1 font-heading text-[10px] uppercase tracking-ultra text-chrome backdrop-blur-sm">
+                {p.category}
+              </span>
+              {/* bottom gradient + title on hover */}
+              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-ink via-ink/30 to-transparent p-5 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                <h3 className="font-display text-2xl uppercase leading-none tracking-tight text-chrome md:text-3xl">
+                  {p.title}
+                </h3>
+                <p className="mt-1 text-xs text-chrome-dim">
+                  {p.client} · {p.year}
+                </p>
+              </div>
+              {/* always-visible red underline accent on hover */}
+              <span className="absolute bottom-0 left-0 h-[3px] w-0 bg-blood transition-all duration-500 group-hover:w-full" />
+            </Link>
           ))}
         </div>
       </div>
@@ -447,17 +470,26 @@ function LatestNews() {
 export default function Home() {
   return (
     <PageWrapper>
+      {/* 1. Simple loader (App-level) + 2. moving front page */}
       <Hero />
       <div className="relative bg-ink">
+        {/* 3. Sound / VFX crafts strip - small */}
         <Marquee
           items={['Editorial', 'Color', 'Sound', 'VFX', 'Motion', 'Finishing']}
           className="border-y border-white/5 bg-ink-900"
+          size="sm"
         />
-        <Stats />
+        {/* 4. Who we are */}
         <Intro />
+        {/* 5. Recent finishes - Netflix-style portfolio */}
+        <PortfolioRow />
+        {/* 6. 250+ finished / 18 awards */}
+        <Stats />
+        {/* 7. What we do */}
         <ServicesPreview />
-        <FeaturedWork />
+        {/* 8. How we work */}
         <Process />
+        {/* 9. News & events */}
         <LatestNews />
       </div>
     </PageWrapper>

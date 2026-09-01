@@ -161,6 +161,15 @@ button {
   color: #fff;
 }
 
+/* Hide scrollbar for horizontal media rows (Netflix-style portfolio) */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Marquee */
 @keyframes marquee {
   from {
