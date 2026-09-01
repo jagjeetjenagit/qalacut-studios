@@ -537,8 +537,6 @@ export default function Home() {
         />
         {/* 4. Who we are */}
         <Intro />
-        {/* 4b. From the founder */}
-        <Founder />
         {/* 5. Recent finishes - Netflix-style portfolio */}
         <PortfolioRow />
         {/* 6. 250+ finished / 18 awards */}
@@ -549,6 +547,8 @@ export default function Home() {
         <Process />
         {/* 9. News & events */}
         <LatestNews />
+        {/* 10. From the founder */}
+        <Founder />
       </div>
     </PageWrapper>
   )
