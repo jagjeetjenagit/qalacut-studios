@@ -212,21 +212,21 @@ function Intro() {
     <section className="relative py-16 md:py-24">
       <div className="container-x grid grid-cols-1 gap-16 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <SectionHeading eyebrow="Who We Are" title="The room where films are finished." />
+          <SectionHeading eyebrow="The Studio" title="Where films get their last 10%." accentWord="10%." />
         </div>
         <div className="flex flex-col justify-center gap-8 lg:col-span-6 lg:col-start-7">
           <Reveal>
-            <p className="text-lg leading-relaxed text-chrome-dim">
-              QalaCut is a post-production studio built by editors, colorists and
-              sound designers who are obsessed with the final 10%. The part that
-              separates good from unforgettable.
+            <p className="text-lg leading-relaxed text-chrome-dim md:text-xl">
+              QalaCut is where films come to be finished. Editors, colorists,
+              mixers and VFX artists under one roof, chasing the last ten percent
+              nobody notices and everybody feels.
             </p>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="leading-relaxed text-chrome-dark">
-              From the first assembly to the last deliverable, we treat every
-              frame like it matters. Because it does. We partner with directors,
-              agencies and studios to give their stories the finish they deserve.
+              We don't just export a master. We sit in the dark with directors,
+              agencies and studios until the cut breathes exactly the way it was
+              always meant to.
             </p>
           </Reveal>
         </div>
@@ -266,9 +266,9 @@ function Founder() {
         {/* Note */}
         <div className="lg:col-span-6 lg:col-start-7">
           <SectionHeading
-            eyebrow="From the Founder"
-            title="A studio built on obsession."
-            accentWord="obsession."
+            eyebrow="The Founder"
+            title="Every frame has my name on it."
+            accentWord="name"
           />
           <Reveal delay={0.1}>
             <p className="mt-8 font-display text-2xl leading-snug text-chrome md:text-3xl">
@@ -308,7 +308,7 @@ function ServicesPreview() {
     <section className="relative border-t border-white/5 py-16 md:py-36">
       <div className="container-x">
         <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading eyebrow="What We Do" title="Six crafts. One final cut." />
+          <SectionHeading eyebrow="The Craft" title="Six rooms. One final cut." accentWord="cut." />
           <Reveal>
             <Link to="/services" className="btn-ghost">
               All Services
@@ -353,14 +353,14 @@ function PortfolioRow() {
   const scrollBy = (dir) => {
     const el = scrollerRef.current
     if (!el) return
-    const amount = Math.min(el.clientWidth * 0.8, 640)
+    const amount = Math.min(el.clientWidth * 0.9, 760)
     el.scrollBy({ left: dir * amount, behavior: 'smooth' })
   }
 
   return (
     <section className="relative py-16 md:py-28">
       <div className="container-x mb-8 flex flex-col items-start justify-between gap-6 md:mb-10 md:flex-row md:items-end">
-        <SectionHeading eyebrow="View Our Portfolio" title="Recent finishes." accentWord="finishes." />
+        <SectionHeading eyebrow="Selected Work" title="Straight out of the suite." accentWord="suite." />
         <Reveal>
           <div className="flex items-center gap-4">
             {/* arrow controls, Netflix-style */}
@@ -405,29 +405,39 @@ function PortfolioRow() {
               key={p.slug}
               to={`/films/${p.slug}`}
               data-cursor="hover"
-              className="group relative aspect-[2/3] w-[62vw] flex-none snap-start overflow-hidden rounded-md border border-white/8 transition-transform duration-500 will-change-transform hover:z-20 hover:scale-[1.04] sm:w-[38vw] md:w-[300px] lg:w-[340px]"
+              className="group relative aspect-[16/10] w-[80vw] flex-none snap-start overflow-hidden rounded-xl border border-white/10 bg-ink-800 transition-all duration-500 will-change-transform hover:z-20 hover:border-blood/40 sm:w-[62vw] md:w-[440px] lg:w-[520px]"
             >
               <img
-                src={p.thumb}
+                src={p.poster}
                 alt={p.title}
                 loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
+                className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]"
               />
-              {/* category chip */}
-              <span className="absolute left-3 top-3 rounded-full border border-white/20 bg-ink/50 px-3 py-1 font-heading text-[10px] uppercase tracking-ultra text-chrome backdrop-blur-sm">
-                {p.category}
-              </span>
-              {/* bottom gradient + title on hover */}
-              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-ink via-ink/30 to-transparent p-5 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                <h3 className="font-display text-2xl uppercase leading-none tracking-tight text-chrome md:text-3xl">
+              {/* always-on cinematic grade for legibility */}
+              <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent" />
+
+              {/* top row: category + status */}
+              <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4">
+                <span className="rounded-full border border-white/20 bg-ink/40 px-3 py-1 font-heading text-[10px] uppercase tracking-ultra text-chrome backdrop-blur-sm">
+                  {p.category}
+                </span>
+                {p.status === 'upcoming' && (
+                  <span className="rounded-full border border-blood/50 bg-blood/10 px-3 py-1 font-heading text-[10px] uppercase tracking-ultra text-blood-light backdrop-blur-sm">
+                    Upcoming
+                  </span>
+                )}
+              </div>
+
+              {/* always-visible title block */}
+              <div className="absolute inset-x-0 bottom-0 flex flex-col p-5 md:p-6">
+                <h3 className="font-display text-3xl uppercase leading-[0.9] tracking-tight text-chrome md:text-4xl">
                   {p.title}
                 </h3>
-                <p className="mt-1 text-xs text-chrome-dim">
+                <p className="mt-2 font-heading text-[11px] uppercase tracking-[0.2em] text-chrome-dim">
                   {p.client} · {p.year}
                 </p>
+                <span className="mt-4 h-[2px] w-10 bg-blood transition-all duration-500 group-hover:w-24" />
               </div>
-              {/* always-visible red underline accent on hover */}
-              <span className="absolute bottom-0 left-0 h-[3px] w-0 bg-blood transition-all duration-500 group-hover:w-full" />
             </Link>
           ))}
         </div>
@@ -448,8 +458,9 @@ function Process() {
     <section className="relative border-t border-white/5 bg-ink-800/30 py-16 md:py-36">
       <div className="container-x">
         <SectionHeading
-          eyebrow="How We Work"
-          title="A process built for the final 10%."
+          eyebrow="The Method"
+          title="Obsessed with the last mile."
+          accentWord="mile."
           align="center"
           className="mb-20"
         />
@@ -481,7 +492,7 @@ function LatestNews() {
     <section className="relative py-16 md:py-36">
       <div className="container-x">
         <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading eyebrow="News & Events" title="Latest from the studio." accentWord="studio." />
+          <SectionHeading eyebrow="Dispatches" title="Notes from the studio floor." accentWord="floor." />
           <Reveal>
             <Link to="/news" className="btn-ghost">
               All News
