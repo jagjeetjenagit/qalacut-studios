@@ -42,11 +42,38 @@ function BackgroundMontage() {
             src={heroShots[index]}
             alt=""
             className="h-full w-full object-cover"
-            style={{ filter: 'grayscale(0.35) contrast(1.15) brightness(0.55) saturate(1.1)' }}
+            style={{ filter: 'grayscale(0.55) contrast(1.05) brightness(0.38) saturate(0.85)' }}
           />
         </motion.div>
       </AnimatePresence>
     </div>
+  )
+}
+
+// Running SMPTE-style timecode - a small post-production authenticity cue in the HUD.
+function Timecode() {
+  const [frames, setFrames] = useState(0)
+  useEffect(() => {
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    if (reduce) {
+      setFrames(24 * 12 + 4) // sit at a static 00:00:12:04
+      return
+    }
+    const id = setInterval(() => setFrames((f) => f + 1), 42) // ~24 fps
+    return () => clearInterval(id)
+  }, [])
+  const fps = 24
+  const p = (n) => String(n).padStart(2, '0')
+  const f = frames % fps
+  const totalSec = Math.floor(frames / fps)
+  const s = totalSec % 60
+  const m = Math.floor(totalSec / 60) % 60
+  const h = Math.floor(totalSec / 3600) % 24
+  return (
+    <span className="font-mono tabular-nums">
+      {p(h)}:{p(m)}:{p(s)}
+      <span className="text-blood">:{p(f)}</span>
+    </span>
   )
 }
 
@@ -65,12 +92,19 @@ function Hero() {
       {/* Background montage + grade */}
       <motion.div style={{ scale, y }} className="absolute inset-0">
         <BackgroundMontage />
-        {/* cinematic grade overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/70" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(10,10,11,0.9)_100%)]" />
+        {/* cinematic grade overlays - legibility first */}
+        {/* 1. flat global darken so the image reads as mood, not subject */}
+        <div className="absolute inset-0 bg-ink/45" />
+        {/* 2. central scrim: darkest right behind the wordmark + copy, fades out to the edges */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_center,rgba(10,10,11,0.82)_0%,rgba(10,10,11,0.45)_45%,rgba(10,10,11,0.15)_75%)]" />
+        {/* 3. top + bottom anchors for navbar and HUD legibility */}
+        <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-ink via-ink/70 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-ink via-ink/60 to-transparent" />
+        {/* 4. edge vignette for the cinematic frame */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(10,10,11,0.85)_100%)]" />
         <div className="absolute inset-0 bg-grain opacity-[0.07]" />
         {/* red ambient glow */}
-        <div className="absolute left-1/2 top-1/2 h-[60vh] w-[85vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blood/10 blur-[150px]" />
+        <div className="absolute left-1/2 top-1/2 h-[55vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blood/10 blur-[150px]" />
       </motion.div>
 
       {/* Content - stays fixed in place, does not travel with scroll */}
@@ -122,6 +156,16 @@ function Hero() {
           Studios
         </motion.span>
 
+        {/* signature red laser slash */}
+        <motion.span
+          aria-hidden
+          className="laser-line mt-5 block w-40 md:w-56"
+          style={{ transformOrigin: 'center' }}
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 1 }}
+          transition={{ delay: 1.5, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        />
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -149,6 +193,34 @@ function Hero() {
             </Link>
           </Magnetic>
         </motion.div>
+      </motion.div>
+
+      {/* Cinematic viewfinder safe-frame with corner ticks */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.9, duration: 1 }}
+        className="pointer-events-none absolute inset-x-4 top-[4.5rem] bottom-5 z-20 md:inset-x-8 md:top-24 md:bottom-8"
+      >
+        <span className="absolute left-0 top-0 h-5 w-5 border-l border-t border-white/25 md:h-9 md:w-9" />
+        <span className="absolute right-0 top-0 h-5 w-5 border-r border-t border-white/25 md:h-9 md:w-9" />
+        <span className="absolute bottom-0 left-0 h-5 w-5 border-b border-l border-white/25 md:h-9 md:w-9" />
+        <span className="absolute bottom-0 right-0 h-5 w-5 border-b border-r border-white/25 md:h-9 md:w-9" />
+
+        {/* HUD: REC + running timecode (bottom-left) */}
+        <div className="absolute bottom-1 left-2 flex items-center gap-2 font-heading text-[9px] uppercase tracking-ultra text-chrome-dim md:bottom-2 md:left-3 md:text-[10px]">
+          <span className="flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-blood shadow-[0_0_8px_1px_rgba(225,17,35,0.8)]" />
+            Rec
+          </span>
+          <span className="text-chrome-dark">·</span>
+          <Timecode />
+        </div>
+
+        {/* HUD: location / coordinates (bottom-right, desktop) */}
+        <div className="absolute bottom-2 right-3 hidden font-heading text-[10px] uppercase tracking-ultra text-chrome-dim md:block">
+          Mumbai · 19.07°N
+        </div>
       </motion.div>
 
       {/* Scroll indicator */}
@@ -467,8 +539,7 @@ function Process() {
           eyebrow="The Method"
           title="Obsessed with the last mile."
           accentWord="mile."
-          align="center"
-          className="mb-20"
+          className="mb-16 md:mb-20"
         />
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
           {steps.map((s, i) => (
