@@ -541,12 +541,15 @@ function Process() {
           accentWord="mile."
           className="mb-16 md:mb-20"
         />
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-8">
           {steps.map((s, i) => (
             <Reveal key={s.n} delay={i * 0.12} className="relative">
               <div className="mb-6 flex items-center gap-4">
-                <span className="font-display text-6xl text-transparent" style={{ WebkitTextStroke: '1px rgba(225,17,35,0.6)' }}>
+                <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full border border-blood/40 bg-blood/5 font-heading text-base text-blood-light">
                   {s.n}
+                </span>
+                <span className="font-heading text-[0.7rem] uppercase tracking-ultra text-chrome-dark">
+                  Step {s.n} of 03
                 </span>
                 <span className="h-px flex-1 bg-white/10" />
               </div>
