@@ -106,8 +106,30 @@ button {
     @apply relative inline-flex items-center justify-center gap-3 rounded-full border border-white/15 px-8 py-4 font-heading text-sm font-semibold uppercase tracking-[0.18em] text-chrome-dim transition-all duration-300 hover:border-blood/60 hover:text-white;
   }
 
+  /* Cinematic kicker: glowing pulse dot + tracked label (replaces the old dash line) */
   .eyebrow {
-    @apply inline-flex items-center gap-3 font-heading text-xs font-medium uppercase tracking-ultra text-blood-light;
+    @apply inline-flex items-center gap-3 font-heading text-[0.7rem] font-semibold uppercase tracking-ultra text-chrome-dim;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    flex: none;
+    border-radius: 9999px;
+    background: var(--blood);
+    box-shadow: 0 0 0 4px rgba(225, 17, 35, 0.12), 0 0 14px 2px rgba(225, 17, 35, 0.7);
+    animation: eyebrow-pulse 2.6s ease-in-out infinite;
+  }
+  /* centered headings get the dot on both sides for symmetry */
+  .eyebrow-center::after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    flex: none;
+    border-radius: 9999px;
+    background: var(--blood);
+    box-shadow: 0 0 0 4px rgba(225, 17, 35, 0.12), 0 0 14px 2px rgba(225, 17, 35, 0.7);
+    animation: eyebrow-pulse 2.6s ease-in-out infinite;
   }
 
   .card-edge {
@@ -188,7 +210,35 @@ button {
   animation-play-state: paused;
 }
 
+@keyframes eyebrow-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+/* Animated gradient accent rule that grows in under a heading */
+.accent-rule {
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--blood), rgba(255, 59, 72, 0));
+  box-shadow: 0 0 12px 0 rgba(225, 17, 35, 0.55);
+}
+
+/* Founder signature accent - a soft glowing red bar (replaces the flat 1px dash) */
+.signature-accent {
+  background: linear-gradient(90deg, var(--blood-glow), var(--blood) 55%, rgba(225, 17, 35, 0.15));
+  box-shadow: 0 0 10px 0 rgba(225, 17, 35, 0.6);
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .eyebrow::before,
+  .eyebrow-center::after,
   .marquee-track,
   .animate-laser-sweep,
   .animate-pulse-glow,

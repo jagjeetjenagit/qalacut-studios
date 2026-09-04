@@ -15,7 +15,6 @@ export default function PageHero({ eyebrow, title, subtitle, accentWord }) {
           transition={{ duration: 0.6 }}
           className="eyebrow mb-6"
         >
-          <span className="inline-block h-px w-10 bg-blood" />
           {eyebrow}
         </motion.span>
 
@@ -40,6 +39,13 @@ export default function PageHero({ eyebrow, title, subtitle, accentWord }) {
             </span>
           ))}
         </motion.h1>
+
+        <motion.span
+          className="accent-rule mt-8 block"
+          initial={{ width: 0, opacity: 0 }}
+          animate={{ width: 96, opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        />
 
         {subtitle && (
           <motion.p

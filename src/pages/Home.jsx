@@ -82,11 +82,9 @@ function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.8 }}
-          className="eyebrow mb-5 md:mb-8"
+          className="eyebrow eyebrow-center mb-5 md:mb-8"
         >
-          <span className="inline-block h-px w-10 bg-blood" />
           Post-Production Studio
-          <span className="inline-block h-px w-10 bg-blood" />
         </motion.span>
 
         {/* One-line wordmark - QALA + C(red) + UT */}
@@ -212,7 +210,7 @@ function Intro() {
     <section className="relative py-16 md:py-24">
       <div className="container-x grid grid-cols-1 gap-16 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <SectionHeading eyebrow="The Studio" title="Where films get their last 10%." accentWord="10%." />
+          <SectionHeading index="01" eyebrow="The Studio" title="Where films get their last 10%." accentWord="10%." />
         </div>
         <div className="flex flex-col justify-center gap-8 lg:col-span-6 lg:col-start-7">
           <Reveal>
@@ -266,6 +264,7 @@ function Founder() {
         {/* Note */}
         <div className="lg:col-span-6 lg:col-start-7">
           <SectionHeading
+            index="06"
             eyebrow="The Founder"
             title="Every frame has my name on it."
             accentWord="name"
@@ -284,13 +283,13 @@ function Founder() {
             </p>
           </Reveal>
           <Reveal delay={0.26}>
-            <div className="mt-10 flex items-center gap-5">
-              <span className="h-px w-12 bg-blood" />
+            <div className="mt-10 flex items-center gap-4 md:gap-5">
+              <span className="signature-accent h-[2px] w-10 flex-none rounded-full md:w-14" />
               <div>
                 <p className="font-heading text-lg uppercase tracking-wide text-chrome">
                   Founder Name
                 </p>
-                <p className="font-heading text-xs uppercase tracking-ultra text-chrome-dark">
+                <p className="mt-0.5 font-heading text-[0.7rem] uppercase tracking-ultra text-chrome-dark">
                   Founder &amp; Creative Director
                 </p>
               </div>
@@ -308,7 +307,7 @@ function ServicesPreview() {
     <section className="relative border-t border-white/5 py-16 md:py-36">
       <div className="container-x">
         <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading eyebrow="The Craft" title="Six rooms. One final cut." accentWord="cut." />
+          <SectionHeading index="03" eyebrow="The Craft" title="Six rooms. One final cut." accentWord="cut." />
           <Reveal>
             <Link to="/services" className="btn-ghost">
               All Services
@@ -321,18 +320,24 @@ function ServicesPreview() {
             <Reveal key={s.id} delay={i * 0.05}>
               <Link
                 to="/services"
-                className="group relative flex items-center justify-between gap-6 border-t border-white/8 py-8 transition-colors duration-500 hover:border-blood/40 last:border-b"
+                className="group relative flex items-center justify-between gap-4 border-t border-white/8 py-7 transition-colors duration-500 hover:border-blood/40 last:border-b md:gap-6 md:py-8"
               >
-                <div className="flex items-baseline gap-6">
-                  <span className="font-heading text-sm text-blood">{s.index}</span>
-                  <h3 className="font-display text-4xl uppercase tracking-tight text-chrome transition-all duration-500 group-hover:translate-x-3 group-hover:text-blood md:text-6xl">
-                    {s.title}
-                  </h3>
+                <div className="flex min-w-0 flex-col gap-2 md:flex-row md:items-baseline md:gap-6">
+                  <div className="flex items-baseline gap-4 md:gap-6">
+                    <span className="font-heading text-sm text-blood">{s.index}</span>
+                    <h3 className="font-display text-[2rem] uppercase leading-none tracking-tight text-chrome transition-all duration-500 group-hover:translate-x-3 group-hover:text-blood md:text-6xl">
+                      {s.title}
+                    </h3>
+                  </div>
+                  {/* short description: stacked under the title on mobile, hidden on desktop (desktop shows it on the right) */}
+                  <p className="pl-8 text-sm leading-relaxed text-chrome-dark md:hidden">
+                    {s.short}
+                  </p>
                 </div>
                 <div className="hidden max-w-xs text-right text-sm text-chrome-dark md:block">
                   {s.short}
                 </div>
-                <span className="text-2xl text-chrome-dark transition-all duration-500 group-hover:translate-x-2 group-hover:text-blood">
+                <span className="flex-none text-2xl text-chrome-dark transition-all duration-500 group-hover:translate-x-2 group-hover:text-blood">
                   →
                 </span>
               </Link>
@@ -360,7 +365,7 @@ function PortfolioRow() {
   return (
     <section className="relative py-16 md:py-28">
       <div className="container-x mb-8 flex flex-col items-start justify-between gap-6 md:mb-10 md:flex-row md:items-end">
-        <SectionHeading eyebrow="Selected Work" title="Straight out of the suite." accentWord="suite." />
+        <SectionHeading index="02" eyebrow="Selected Work" title="Straight out of the suite." accentWord="suite." />
         <Reveal>
           <div className="flex items-center gap-4">
             {/* arrow controls, Netflix-style */}
@@ -458,6 +463,7 @@ function Process() {
     <section className="relative border-t border-white/5 bg-ink-800/30 py-16 md:py-36">
       <div className="container-x">
         <SectionHeading
+          index="04"
           eyebrow="The Method"
           title="Obsessed with the last mile."
           accentWord="mile."
@@ -492,7 +498,7 @@ function LatestNews() {
     <section className="relative py-16 md:py-36">
       <div className="container-x">
         <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading eyebrow="Dispatches" title="Notes from the studio floor." accentWord="floor." />
+          <SectionHeading index="05" eyebrow="Dispatches" title="Notes from the studio floor." accentWord="floor." />
           <Reveal>
             <Link to="/news" className="btn-ghost">
               All News

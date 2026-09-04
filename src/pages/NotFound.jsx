@@ -7,7 +7,7 @@ export default function NotFound() {
       <section className="relative flex min-h-[80svh] flex-col items-center justify-center overflow-hidden text-center">
         <div className="absolute left-1/2 top-1/2 h-[50vh] w-[50vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blood/15 blur-[120px]" />
         <span className="eyebrow mb-6 relative">
-          <span className="inline-block h-px w-8 bg-blood" /> Lost the reel
+          Lost the reel
         </span>
         <h1 className="relative font-display text-[28vw] leading-none text-chrome md:text-[18vw]">
           4<span className="text-blood">0</span>4

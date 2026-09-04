@@ -47,7 +47,7 @@ export default function Search() {
       <section className="pt-32 md:pt-40">
         <div className="container-x mx-auto max-w-3xl">
           <span className="eyebrow mb-6">
-            <span className="inline-block h-px w-10 bg-blood" /> Search
+            Search
           </span>
           <div className="relative">
             <span className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-2xl text-chrome-dark">

@@ -33,7 +33,7 @@ export default function Footer() {
         <div className="flex flex-col items-start justify-between gap-10 pb-20 md:flex-row md:items-end">
           <div>
             <span className="eyebrow mb-5">
-              <span className="inline-block h-px w-8 bg-blood" /> Let's build something
+              Let's build something
             </span>
             <h2 className="font-display text-5xl uppercase leading-[0.95] tracking-tight text-chrome sm:text-6xl md:text-7xl">
               Ready to make <br />
