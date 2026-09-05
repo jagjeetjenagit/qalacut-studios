@@ -5,8 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 // letter-by-letter blur reveal, growing accent line, pulsing dots,
 // and a bottom progress bar with an eased counter that snaps to 100 on load.
 const WORDS = ['QALACUT', 'STUDIOS']
-const RED_WORD = 0
-const RED_INDEX = 4 // the "C" in QALA[C]UT - matches the logo
+// first letter of each word is red: [Q]ALACUT [S]TUDIOS
 
 export default function Loader({ onDone }) {
   const [progress, setProgress] = useState(0)
@@ -92,7 +91,7 @@ export default function Loader({ onDone }) {
                 <span key={wi} className="inline-flex whitespace-nowrap">
                   {w.split('').map((ch, i) => {
                     const idx = wi * 8 + i
-                    const isRed = wi === RED_WORD && i === RED_INDEX
+                    const isRed = i === 0
                     return (
                       <motion.span
                         key={i}
