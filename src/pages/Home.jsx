@@ -389,7 +389,7 @@ function Founder() {
         {/* Note */}
         <div className="lg:col-span-6 lg:col-start-7">
           <SectionHeading
-            index="05"
+            index="04"
             eyebrow="The Founders"
             title="Every frame has our name on it."
             accentWord="name"
