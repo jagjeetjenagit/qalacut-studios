@@ -121,7 +121,7 @@ function Hero() {
           Post-Production House
         </motion.span>
 
-        {/* One-line wordmark - QALA + C(red) + UT */}
+        {/* One-line wordmark - Q(red) + ALACUT */}
         <div className="relative">
           <motion.h1
             variants={stagger(0.05, 0.5)}
@@ -130,18 +130,13 @@ function Hero() {
             className="whitespace-nowrap font-display text-[15vw] uppercase leading-[0.85] tracking-tight md:text-[14vw] lg:text-[13vw]"
           >
             <span className="inline-block overflow-hidden pb-[0.08em] align-bottom">
-              <motion.span variants={maskUp} className="inline-block text-chrome" style={{ filter: 'drop-shadow(0 6px 30px rgba(0,0,0,0.6))' }}>
-                QALA
-              </motion.span>
-            </span>
-            <span className="inline-block overflow-hidden pb-[0.08em] align-bottom">
               <motion.span variants={maskUp} className="inline-block text-blood" style={{ filter: 'drop-shadow(0 0 24px rgba(225,17,35,0.6))' }}>
-                C
+                Q
               </motion.span>
             </span>
             <span className="inline-block overflow-hidden pb-[0.08em] align-bottom">
               <motion.span variants={maskUp} className="inline-block text-chrome" style={{ filter: 'drop-shadow(0 6px 30px rgba(0,0,0,0.6))' }}>
-                UT
+                ALACUT
               </motion.span>
             </span>
           </motion.h1>
