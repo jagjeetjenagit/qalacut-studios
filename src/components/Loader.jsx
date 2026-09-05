@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 // First-load cinematic intro - production-house loader:
 // letter-by-letter blur reveal, growing accent line, pulsing dots,
 // and a bottom progress bar with an eased counter that snaps to 100 on load.
-const WORD = 'QALACUT'
+const WORDS = ['QALACUT', 'STUDIOS']
+const RED_WORD = 0
 const RED_INDEX = 4 // the "C" in QALA[C]UT - matches the logo
 
 export default function Loader({ onDone }) {
@@ -84,20 +85,28 @@ export default function Loader({ onDone }) {
 
             {/* Wordmark - letter-by-letter blur reveal */}
             <h1
-              className="flex items-center justify-center font-display uppercase leading-none tracking-tight"
-              style={{ fontSize: 'clamp(2rem, 9vw, 5.5rem)' }}
+              className="flex flex-wrap items-center justify-center gap-x-4 font-display uppercase leading-[0.95] tracking-tight sm:gap-x-6"
+              style={{ fontSize: 'clamp(1.8rem, 8.5vw, 5rem)' }}
             >
-              {WORD.split('').map((ch, i) => (
-                <motion.span
-                  key={i}
-                  className={i === RED_INDEX ? 'text-blood' : 'text-chrome'}
-                  initial={{ opacity: 0, y: 26, filter: 'blur(6px)' }}
-                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  transition={{ delay: 0.35 + i * 0.05, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  style={{ display: 'inline-block' }}
-                >
-                  {ch}
-                </motion.span>
+              {WORDS.map((w, wi) => (
+                <span key={wi} className="inline-flex whitespace-nowrap">
+                  {w.split('').map((ch, i) => {
+                    const idx = wi * 8 + i
+                    const isRed = wi === RED_WORD && i === RED_INDEX
+                    return (
+                      <motion.span
+                        key={i}
+                        className={isRed ? 'text-blood' : 'text-chrome'}
+                        initial={{ opacity: 0, y: 26, filter: 'blur(6px)' }}
+                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                        transition={{ delay: 0.35 + idx * 0.045, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                        style={{ display: 'inline-block' }}
+                      >
+                        {ch}
+                      </motion.span>
+                    )
+                  })}
+                </span>
               ))}
             </h1>
 
