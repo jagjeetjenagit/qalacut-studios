@@ -6,6 +6,13 @@ import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import { services } from '../data/services'
 
+// How we work - moved here from the homepage so the method lives with the craft.
+const steps = [
+  { n: '01', title: 'Ingest & Assembly', text: 'We organise, sync and build the first structure of your story.' },
+  { n: '02', title: 'Craft & Iterate', text: 'Editorial, color, sound and VFX evolve together through review cycles.' },
+  { n: '03', title: 'Finish & Master', text: 'Conform, QC and deliver flawless masters for every platform.' },
+]
+
 function ServiceBlock({ s, i }) {
   const reversed = i % 2 === 1
   return (
@@ -72,6 +79,37 @@ export default function Services() {
             <ServiceBlock s={s} i={i} />
           </Reveal>
         ))}
+      </section>
+
+      {/* The Method (moved from the homepage) */}
+      <section className="relative border-t border-white/5 py-16 md:py-32">
+        <div className="container-x">
+          <SectionHeading
+            eyebrow="The Method"
+            title="Obsessed with the last mile."
+            accentWord="mile."
+            className="mb-16 md:mb-20"
+          />
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-8">
+            {steps.map((s) => (
+              <Reveal key={s.n}>
+                <div className="mb-6 flex items-center gap-4">
+                  <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full border border-blood/40 bg-blood/5 font-heading text-base text-blood-light">
+                    {s.n}
+                  </span>
+                  <span className="font-heading text-[0.7rem] uppercase tracking-ultra text-chrome-dark">
+                    Step {s.n} of 03
+                  </span>
+                  <span className="h-px flex-1 bg-white/10" />
+                </div>
+                <h3 className="mb-3 font-heading text-2xl font-medium uppercase tracking-wide text-chrome">
+                  {s.title}
+                </h3>
+                <p className="leading-relaxed text-chrome-dark">{s.text}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Pipeline callout */}

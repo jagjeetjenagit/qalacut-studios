@@ -1,80 +1,162 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { easeExpo } from '../lib/motion'
 
-// First-load cinematic intro (trihari-style): a clean mask-revealed wordmark,
-// a smooth counter, and a single seamless upward wipe. No slash / no cut.
+// First-load cinematic intro - production-house loader:
+// letter-by-letter blur reveal, growing accent line, pulsing dots,
+// and a bottom progress bar with an eased counter that snaps to 100 on load.
+const WORD = 'QALACUT'
+const RED_INDEX = 4 // the "C" in QALA[C]UT - matches the logo
+
 export default function Loader({ onDone }) {
-  const [count, setCount] = useState(0)
-  const [done, setDone] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [visible, setVisible] = useState(true)
 
   useEffect(() => {
-    const start = performance.now()
-    const duration = 2200
-    let raf
-    const tick = (now) => {
-      const p = Math.min(1, (now - start) / duration)
-      // gentle ease-in-out so the number never snaps
-      const eased = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2
-      setCount(Math.round(eased * 100))
-      if (p < 1) {
-        raf = requestAnimationFrame(tick)
-      } else {
-        setTimeout(() => setDone(true), 450)
-      }
+    const minLoadTime = 2800
+    const start = Date.now()
+
+    // ease the counter up, capping at 96 until the page is actually ready
+    const interval = setInterval(() => {
+      setProgress((p) => (p >= 96 ? 96 : p + Math.max(1, Math.round((100 - p) * 0.05))))
+    }, 90)
+
+    const complete = () => {
+      const remaining = Math.max(0, minLoadTime - (Date.now() - start))
+      setTimeout(() => {
+        clearInterval(interval)
+        setProgress(100)
+        setTimeout(() => setVisible(false), 550) // hold on 100% then wipe
+      }, remaining)
     }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+
+    if (document.readyState === 'complete') complete()
+    else window.addEventListener('load', complete)
+
+    return () => {
+      clearInterval(interval)
+      window.removeEventListener('load', complete)
+    }
   }, [])
 
-  const progress = count / 100
+  const pct = Math.min(progress, 100)
 
   return (
     <AnimatePresence onExitComplete={onDone}>
-      {!done && (
+      {visible && (
         <motion.div
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-ink"
-          exit={{ y: '-100%' }}
-          transition={{ duration: 1.05, ease: easeExpo }}
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6, ease: 'easeInOut' }}
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-ink"
         >
-          <div className="relative flex flex-col items-center">
-            {/* mask-revealed wordmark - rises smoothly into place */}
-            <span className="overflow-hidden pb-[0.12em]">
-              <motion.span
-                initial={{ y: '110%' }}
-                animate={{ y: '0%' }}
-                transition={{ duration: 1, ease: easeExpo }}
-                className="inline-block font-display text-6xl uppercase tracking-tight text-chrome sm:text-8xl"
-              >
-                Qala<span className="text-blood">Cut</span>
-              </motion.span>
-            </span>
+          {/* Ambient red glow */}
+          <motion.div
+            className="pointer-events-none absolute"
+            style={{
+              width: 'min(95vw, 900px)',
+              height: 'min(95vw, 900px)',
+              top: '8%',
+              background: 'radial-gradient(circle, rgba(225,17,35,0.16), transparent 62%)',
+              filter: 'blur(50px)',
+            }}
+            animate={{ opacity: [0.35, 0.7, 0.35] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          {/* Vignette for depth */}
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{ background: 'radial-gradient(ellipse at center, transparent 42%, rgba(10,10,11,0.75) 100%)' }}
+          />
+          <div className="pointer-events-none absolute inset-0 bg-grain opacity-[0.05]" />
+
+          {/* Center content */}
+          <div className="relative z-10 flex flex-col items-center px-6 text-center">
+            {/* Eyebrow */}
             <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="mt-4 font-heading text-xs uppercase tracking-mega text-chrome-dark"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.7 }}
+              className="mb-6 font-heading text-[9px] font-medium uppercase text-chrome-dark sm:mb-8 sm:text-[11px]"
+              style={{ letterSpacing: '0.5em', textIndent: '0.5em' }}
             >
-              Studios
+              Post Production House
             </motion.span>
 
-            {/* thin progress line that fills as it loads - the only motion cue */}
-            <div className="mt-8 h-px w-52 overflow-hidden bg-white/10 sm:w-72">
-              <motion.div
-                className="h-full origin-left bg-blood"
-                style={{ scaleX: progress }}
-              />
-            </div>
+            {/* Wordmark - letter-by-letter blur reveal */}
+            <h1
+              className="flex items-center justify-center font-display uppercase leading-none tracking-tight"
+              style={{ fontSize: 'clamp(2rem, 9vw, 5.5rem)' }}
+            >
+              {WORD.split('').map((ch, i) => (
+                <motion.span
+                  key={i}
+                  className={i === RED_INDEX ? 'text-blood' : 'text-chrome'}
+                  initial={{ opacity: 0, y: 26, filter: 'blur(6px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  transition={{ delay: 0.35 + i * 0.05, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ display: 'inline-block' }}
+                >
+                  {ch}
+                </motion.span>
+              ))}
+            </h1>
+
+            {/* Accent line */}
+            <motion.div
+              className="mt-6 h-px bg-gradient-to-r from-transparent via-blood to-transparent sm:mt-7"
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: 180, opacity: 1 }}
+              transition={{ delay: 1.2, duration: 0.8, ease: 'easeOut' }}
+            />
+
+            {/* Loading dots */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.4, duration: 0.6 }}
+              className="mt-5 flex items-center gap-2"
+            >
+              {[0, 1, 2].map((i) => (
+                <motion.span
+                  key={i}
+                  className="h-1.5 w-1.5 rounded-full bg-blood"
+                  animate={{ opacity: [0.25, 1, 0.25], scale: [0.8, 1.25, 0.8] }}
+                  transition={{ duration: 1.1, repeat: Infinity, delay: i * 0.18, ease: 'easeInOut' }}
+                />
+              ))}
+            </motion.div>
           </div>
 
-          <div className="absolute bottom-10 left-0 right-0 flex items-end justify-between px-8 md:px-16">
-            <span className="font-heading text-xs uppercase tracking-ultra text-chrome-dark">
-              Post Production
-            </span>
-            <span className="font-display text-5xl text-white/90 tabular-nums md:text-7xl">
-              {count}
-              <span className="text-blood">%</span>
-            </span>
+          {/* Bottom cinematic progress bar */}
+          <div className="absolute bottom-0 left-0 right-0">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.7 }}
+              className="flex items-center justify-between px-5 pb-3 sm:px-10"
+            >
+              <span className="font-heading text-[9px] uppercase text-chrome-dark sm:text-[10px]" style={{ letterSpacing: '0.3em' }}>
+                Loading
+              </span>
+              <span
+                className="font-heading text-[11px] font-semibold text-chrome sm:text-sm"
+                style={{ fontVariantNumeric: 'tabular-nums', letterSpacing: '0.1em' }}
+              >
+                {String(pct).padStart(3, '0')}
+                <span className="ml-0.5 text-blood">%</span>
+              </span>
+            </motion.div>
+            <div className="h-[2px] w-full bg-white/10">
+              <div
+                className="h-full"
+                style={{
+                  width: `${pct}%`,
+                  background: 'linear-gradient(90deg, #e11123, #ff7a18)',
+                  transition: 'width 120ms linear',
+                  boxShadow: '0 0 12px rgba(225,17,35,0.6)',
+                }}
+              />
+            </div>
           </div>
         </motion.div>
       )}

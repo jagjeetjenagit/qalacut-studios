@@ -118,7 +118,7 @@ function Hero() {
           transition={{ delay: 0.4, duration: 0.8 }}
           className="eyebrow eyebrow-center mb-5 md:mb-8"
         >
-          Post-Production Studio
+          Post-Production House
         </motion.span>
 
         {/* One-line wordmark - QALA + C(red) + UT */}
@@ -305,7 +305,26 @@ function Intro() {
   )
 }
 
-/* ---------- FOUNDER / OWNER ---------- */
+/* ---------- FOUNDERS / OWNERS ---------- */
+// Swap these for the real people + photos. Add or remove an entry (2-3 works best).
+const founders = [
+  {
+    name: 'Founder One',
+    role: 'Founder & Creative Director',
+    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80',
+  },
+  {
+    name: 'Founder Two',
+    role: 'Co-Founder & Head of Post',
+    img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80',
+  },
+  {
+    name: 'Founder Three',
+    role: 'Partner & Supervising Colorist',
+    img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&q=80',
+  },
+]
+
 function Founder() {
   return (
     <section className="relative overflow-hidden border-t border-white/5 py-16 md:py-36">
@@ -313,32 +332,42 @@ function Founder() {
       <div className="pointer-events-none absolute -left-40 top-1/2 h-[55vh] w-[55vh] -translate-y-1/2 rounded-full bg-blood/10 blur-[170px]" />
       <div className="pointer-events-none absolute inset-0 bg-grain opacity-[0.05]" />
 
-      <div className="container-x grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-16">
-        {/* Portrait */}
+      <div className="container-x grid grid-cols-1 items-center gap-16 lg:grid-cols-12 lg:gap-16">
+        {/* Circular founder portraits */}
         <Reveal className="lg:col-span-5">
-          <div className="relative mx-auto max-w-md">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-white/10">
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80"
-                alt="Founder portrait"
-                loading="lazy"
-                className="h-full w-full object-cover grayscale transition-all duration-700 hover:grayscale-0"
-                style={{ filter: 'contrast(1.05) brightness(0.9)' }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
-            </div>
-            {/* cinematic frame accents */}
-            <div className="absolute -bottom-4 -right-4 h-24 w-24 border-b-2 border-r-2 border-blood/70" />
-            <div className="absolute -left-4 -top-4 h-24 w-24 border-l-2 border-t-2 border-white/15" />
+          <div className="flex flex-wrap items-start justify-center gap-x-6 gap-y-10 sm:gap-x-10">
+            {founders.map((f) => (
+              <div key={f.name} className="group flex w-32 flex-col items-center text-center sm:w-36">
+                <div className="relative">
+                  {/* glowing ring */}
+                  <span className="pointer-events-none absolute -inset-1.5 rounded-full border border-blood/30 transition-all duration-500 group-hover:border-blood/70 group-hover:shadow-[0_0_24px_2px_rgba(225,17,35,0.35)]" />
+                  <div className="relative aspect-square w-32 overflow-hidden rounded-full border border-white/10 sm:w-36">
+                    <img
+                      src={f.img}
+                      alt={f.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
+                      style={{ filter: 'contrast(1.05) brightness(0.92)' }}
+                    />
+                  </div>
+                </div>
+                <p className="mt-5 font-heading text-sm uppercase tracking-wide text-chrome">
+                  {f.name}
+                </p>
+                <p className="mt-1 font-heading text-[0.65rem] uppercase leading-snug tracking-ultra text-chrome-dark">
+                  {f.role}
+                </p>
+              </div>
+            ))}
           </div>
         </Reveal>
 
         {/* Note */}
         <div className="lg:col-span-6 lg:col-start-7">
           <SectionHeading
-            index="06"
-            eyebrow="The Founder"
-            title="Every frame has my name on it."
+            index="05"
+            eyebrow="The Founders"
+            title="Every frame has our name on it."
             accentWord="name"
           />
           <Reveal delay={0.1}>
@@ -349,22 +378,17 @@ function Founder() {
           </Reveal>
           <Reveal delay={0.18}>
             <p className="mt-6 leading-relaxed text-chrome-dark">
-              I started QalaCut because the last mile of a film deserves the same
-              fire as the first frame. Every project that leaves this studio
-              carries the whole team&rsquo;s craft, and my name behind it.
+              We started QalaCut because the last mile of a film deserves the same
+              fire as the first frame. Every project that leaves this house
+              carries the whole team&rsquo;s craft, and our names behind it.
             </p>
           </Reveal>
           <Reveal delay={0.26}>
             <div className="mt-10 flex items-center gap-4 md:gap-5">
               <span className="signature-accent h-[2px] w-10 flex-none rounded-full md:w-14" />
-              <div>
-                <p className="font-heading text-lg uppercase tracking-wide text-chrome">
-                  Founder Name
-                </p>
-                <p className="mt-0.5 font-heading text-[0.7rem] uppercase tracking-ultra text-chrome-dark">
-                  Founder &amp; Creative Director
-                </p>
-              </div>
+              <p className="font-heading text-[0.7rem] uppercase tracking-ultra text-chrome-dark">
+                The QalaCut Founding Team
+              </p>
             </div>
           </Reveal>
         </div>
@@ -523,48 +547,6 @@ function PortfolioRow() {
   )
 }
 
-/* ---------- PROCESS ---------- */
-const steps = [
-  { n: '01', title: 'Ingest & Assembly', text: 'We organise, sync and build the first structure of your story.' },
-  { n: '02', title: 'Craft & Iterate', text: 'Editorial, color, sound and VFX evolve together through review cycles.' },
-  { n: '03', title: 'Finish & Master', text: 'Conform, QC and deliver flawless masters for every platform.' },
-]
-
-function Process() {
-  return (
-    <section className="relative border-t border-white/5 bg-ink-800/30 py-16 md:py-36">
-      <div className="container-x">
-        <SectionHeading
-          index="04"
-          eyebrow="The Method"
-          title="Obsessed with the last mile."
-          accentWord="mile."
-          className="mb-16 md:mb-20"
-        />
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-8">
-          {steps.map((s, i) => (
-            <Reveal key={s.n} delay={i * 0.12} className="relative">
-              <div className="mb-6 flex items-center gap-4">
-                <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full border border-blood/40 bg-blood/5 font-heading text-base text-blood-light">
-                  {s.n}
-                </span>
-                <span className="font-heading text-[0.7rem] uppercase tracking-ultra text-chrome-dark">
-                  Step {s.n} of 03
-                </span>
-                <span className="h-px flex-1 bg-white/10" />
-              </div>
-              <h3 className="mb-3 font-heading text-2xl font-medium uppercase tracking-wide text-chrome">
-                {s.title}
-              </h3>
-              <p className="leading-relaxed text-chrome-dark">{s.text}</p>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 /* ---------- LATEST NEWS ---------- */
 function LatestNews() {
   const latest = [...news].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3)
@@ -572,7 +554,7 @@ function LatestNews() {
     <section className="relative py-16 md:py-36">
       <div className="container-x">
         <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading index="05" eyebrow="Dispatches" title="Notes from the studio floor." accentWord="floor." />
+          <SectionHeading index="04" eyebrow="Dispatches" title="Notes from the studio floor." accentWord="floor." />
           <Reveal>
             <Link to="/news" className="btn-ghost">
               All News
@@ -634,9 +616,7 @@ export default function Home() {
         <Stats />
         {/* 7. What we do */}
         <ServicesPreview />
-        {/* 8. How we work */}
-        <Process />
-        {/* 9. News & events */}
+        {/* News & events */}
         <LatestNews />
         {/* 10. From the founder */}
         <Founder />

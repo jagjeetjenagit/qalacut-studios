@@ -33,11 +33,11 @@ export default function Footer() {
         <div className="flex flex-col items-start justify-between gap-10 pb-20 md:flex-row md:items-end">
           <div>
             <span className="eyebrow mb-5">
-              Let's build something
+              Reach out to us
             </span>
             <h2 className="font-display text-5xl uppercase leading-[0.95] tracking-tight text-chrome sm:text-6xl md:text-7xl">
               Ready to make <br />
-              <span className="text-blood">the final cut?</span>
+              <span className="text-blood">your final cut?</span>
             </h2>
           </div>
           <Magnetic strength={0.4}>
