@@ -306,22 +306,26 @@ function Intro() {
 }
 
 /* ---------- FOUNDERS / OWNERS ---------- */
-// Swap these for the real people + photos. Add or remove an entry (2-3 works best).
+const base = import.meta.env.BASE_URL
 const founders = [
   {
-    name: 'Founder One',
-    role: 'Founder & Creative Director',
-    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80',
+    name: 'Megha Purohit',
+    role: 'Founder',
+    img: `${base}founders/megha-purohit.png`,
+    pos: '50% 30%',
+    zoom: 1.75,
   },
   {
-    name: 'Founder Two',
-    role: 'Co-Founder & Head of Post',
-    img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80',
+    name: 'Shashi Prakash Purohit',
+    role: 'Co-Founder',
+    img: `${base}founders/shashi-purohit.png`,
+    pos: '50% 22%',
   },
   {
-    name: 'Founder Three',
-    role: 'Partner & Supervising Colorist',
-    img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&q=80',
+    name: 'Siddhant Badhani',
+    role: 'Business Head',
+    img: `${base}founders/siddhant-badhani.jpg`,
+    pos: '50% 18%',
   },
 ]
 
@@ -348,8 +352,13 @@ function Founder() {
                       src={f.img}
                       alt={f.name}
                       loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      style={{ filter: 'contrast(1.14) saturate(0.92) brightness(0.9)' }}
+                      className="h-full w-full object-cover transition-transform duration-700"
+                      style={{
+                        objectPosition: f.pos || '50% 30%',
+                        transform: `scale(${f.zoom || 1})`,
+                        transformOrigin: f.pos || '50% 30%',
+                        filter: 'contrast(1.14) saturate(0.92) brightness(0.9)',
+                      }}
                     />
                     {/* cinematic color grade: teal shadows + warm red highlights */}
                     <div
