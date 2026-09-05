@@ -335,19 +335,40 @@ function Founder() {
       <div className="container-x grid grid-cols-1 items-center gap-16 lg:grid-cols-12 lg:gap-16">
         {/* Circular founder portraits */}
         <Reveal className="lg:col-span-5">
-          <div className="flex flex-wrap items-start justify-center gap-x-6 gap-y-10 sm:gap-x-10">
+          <div className="flex flex-wrap items-start justify-center gap-x-6 gap-y-10 sm:gap-x-9">
             {founders.map((f) => (
-              <div key={f.name} className="group flex w-32 flex-col items-center text-center sm:w-36">
+              <div key={f.name} className="group flex w-28 flex-col items-center text-center sm:w-36">
                 <div className="relative">
-                  {/* glowing ring */}
-                  <span className="pointer-events-none absolute -inset-1.5 rounded-full border border-blood/30 transition-all duration-500 group-hover:border-blood/70 group-hover:shadow-[0_0_24px_2px_rgba(225,17,35,0.35)]" />
-                  <div className="relative aspect-square w-32 overflow-hidden rounded-full border border-white/10 sm:w-36">
+                  {/* soft ambient glow behind the portrait (always on, blooms on hover) */}
+                  <span className="pointer-events-none absolute -inset-2.5 rounded-full bg-blood/25 opacity-40 blur-xl transition-opacity duration-500 group-hover:opacity-90" />
+                  {/* graded ring */}
+                  <span className="pointer-events-none absolute -inset-1.5 rounded-full border border-blood/40 transition-all duration-500 group-hover:border-blood/80 group-hover:shadow-[0_0_30px_3px_rgba(225,17,35,0.45)]" />
+                  <div className="relative aspect-square w-28 overflow-hidden rounded-full border border-white/10 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.85)] sm:w-36">
                     <img
                       src={f.img}
                       alt={f.name}
                       loading="lazy"
-                      className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
-                      style={{ filter: 'contrast(1.05) brightness(0.92)' }}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      style={{ filter: 'contrast(1.14) saturate(0.92) brightness(0.9)' }}
+                    />
+                    {/* cinematic color grade: teal shadows + warm red highlights */}
+                    <div
+                      className="pointer-events-none absolute inset-0"
+                      style={{
+                        background:
+                          'linear-gradient(150deg, rgba(24,120,132,0.38) 0%, transparent 46%, rgba(225,17,35,0.32) 100%)',
+                        mixBlendMode: 'soft-light',
+                      }}
+                    />
+                    {/* red rim light from below - like a practical on set */}
+                    <div
+                      className="pointer-events-none absolute inset-0"
+                      style={{ background: 'radial-gradient(120% 85% at 50% 118%, rgba(225,17,35,0.4), transparent 62%)' }}
+                    />
+                    {/* inner vignette for depth */}
+                    <div
+                      className="pointer-events-none absolute inset-0 rounded-full"
+                      style={{ boxShadow: 'inset 0 0 34px rgba(0,0,0,0.7)' }}
                     />
                   </div>
                 </div>
