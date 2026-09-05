@@ -7,10 +7,7 @@ import Magnetic from './Magnetic'
 // Primary desktop nav
 const links = [
   { to: '/films', label: 'Films' },
-  { to: '/videos', label: 'Videos' },
   { to: '/services', label: 'Services' },
-  { to: '/news', label: 'News' },
-  { to: '/social', label: 'Social' },
   { to: '/about', label: 'About' },
 ]
 
@@ -18,10 +15,7 @@ const links = [
 const mobileLinks = [
   { to: '/', label: 'Home' },
   { to: '/films', label: 'Films' },
-  { to: '/videos', label: 'Videos' },
   { to: '/services', label: 'Services' },
-  { to: '/news', label: 'News' },
-  { to: '/social', label: 'Social' },
   { to: '/about', label: 'About' },
   { to: '/team', label: 'Team' },
   { to: '/contact', label: 'Contact' },

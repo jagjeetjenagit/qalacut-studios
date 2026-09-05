@@ -9,7 +9,6 @@ import Marquee from '../components/Marquee'
 import SectionHeading from '../components/SectionHeading'
 import { services } from '../data/services'
 import { projects } from '../data/projects'
-import { news, formatDate } from '../data/news'
 import { stagger, maskUp } from '../lib/motion'
 
 /* ---------- HERO ---------- */
@@ -531,89 +530,36 @@ function PortfolioRow() {
               key={p.slug}
               to={`/films/${p.slug}`}
               data-cursor="hover"
-              className="group relative aspect-[16/10] w-[80vw] flex-none snap-start overflow-hidden rounded-xl border border-white/10 bg-ink-800 transition-all duration-500 will-change-transform hover:z-20 hover:border-blood/40 sm:w-[62vw] md:w-[440px] lg:w-[520px]"
+              className="group flex w-[62vw] flex-none snap-start flex-col sm:w-[300px] md:w-[330px]"
             >
-              <img
-                src={p.poster}
-                alt={p.title}
-                loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]"
-              />
-              {/* always-on cinematic grade for legibility */}
-              <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent" />
-
-              {/* top row: category + status */}
-              <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4">
-                <span className="rounded-full border border-white/20 bg-ink/40 px-3 py-1 font-heading text-[10px] uppercase tracking-ultra text-chrome backdrop-blur-sm">
-                  {p.category}
-                </span>
-                {p.status === 'upcoming' && (
-                  <span className="rounded-full border border-blood/50 bg-blood/10 px-3 py-1 font-heading text-[10px] uppercase tracking-ultra text-blood-light backdrop-blur-sm">
-                    Upcoming
+              {/* portrait poster */}
+              <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-white/10 bg-ink-800 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.9)] transition-all duration-500 group-hover:border-blood/50">
+                <img
+                  src={p.poster}
+                  alt={p.title}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.05]"
+                />
+                {/* soft red glow on hover */}
+                <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" style={{ boxShadow: 'inset 0 0 60px rgba(225,17,35,0.25)' }} />
+                {/* view badge */}
+                <div className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-ink/90 to-transparent p-4 pt-10">
+                  <span className="font-heading text-[10px] uppercase tracking-ultra text-chrome-dim">
+                    {p.category} · {p.year}
                   </span>
-                )}
+                  <span className="font-heading text-[10px] uppercase tracking-ultra text-blood-light opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                    View ↗
+                  </span>
+                </div>
               </div>
-
-              {/* always-visible title block */}
-              <div className="absolute inset-x-0 bottom-0 flex flex-col p-5 md:p-6">
-                <h3 className="font-display text-3xl uppercase leading-[0.9] tracking-tight text-chrome md:text-4xl">
+              {/* caption */}
+              <div className="mt-4 flex items-baseline justify-between gap-3">
+                <h3 className="font-display text-xl uppercase leading-none tracking-tight text-chrome transition-colors duration-300 group-hover:text-blood md:text-2xl">
                   {p.title}
                 </h3>
-                <p className="mt-2 font-heading text-[11px] uppercase tracking-[0.2em] text-chrome-dim">
-                  {p.client} · {p.year}
-                </p>
-                <span className="mt-4 h-[2px] w-10 bg-blood transition-all duration-500 group-hover:w-24" />
+                <span className="h-[2px] w-8 flex-none bg-blood transition-all duration-500 group-hover:w-14" />
               </div>
             </Link>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* ---------- LATEST NEWS ---------- */
-function LatestNews() {
-  const latest = [...news].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3)
-  return (
-    <section className="relative py-16 md:py-36">
-      <div className="container-x">
-        <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading index="04" eyebrow="Dispatches" title="Notes from the studio floor." accentWord="floor." />
-          <Reveal>
-            <Link to="/news" className="btn-ghost">
-              All News
-            </Link>
-          </Reveal>
-        </div>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {latest.map((n, i) => (
-            <Reveal key={n.slug} delay={i * 0.08}>
-              <Link to={`/news/${n.slug}`} className="group card-edge block h-full" data-cursor="hover">
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <img
-                    src={n.image}
-                    alt={n.title}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/80 to-transparent" />
-                </div>
-                <div className="p-6">
-                  <div className="mb-3 flex items-center gap-3">
-                    <span className="rounded-full border border-blood/40 px-3 py-1 text-[10px] uppercase tracking-wider text-blood-light">
-                      {n.category}
-                    </span>
-                    <span className="font-heading text-xs uppercase tracking-ultra text-chrome-dark">
-                      {formatDate(n.date)}
-                    </span>
-                  </div>
-                  <h3 className="font-heading text-lg font-medium uppercase leading-tight tracking-wide text-chrome transition-colors group-hover:text-blood">
-                    {n.title}
-                  </h3>
-                </div>
-              </Link>
-            </Reveal>
           ))}
         </div>
       </div>
@@ -641,9 +587,7 @@ export default function Home() {
         <Stats />
         {/* 7. What we do */}
         <ServicesPreview />
-        {/* News & events */}
-        <LatestNews />
-        {/* 10. From the founder */}
+        {/* From the founders */}
         <Founder />
       </div>
     </PageWrapper>

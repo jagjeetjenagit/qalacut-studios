@@ -7,16 +7,13 @@ const columns = [
     title: 'Explore',
     links: [
       { to: '/films', label: 'Films' },
-      { to: '/videos', label: 'Videos' },
-      { to: '/news', label: 'News & Events' },
-      { to: '/social', label: 'Social' },
+      { to: '/services', label: 'Services' },
     ],
   },
   {
     title: 'Studio',
     links: [
       { to: '/about', label: 'About' },
-      { to: '/services', label: 'Services' },
       { to: '/team', label: 'Team' },
       { to: '/contact', label: 'Contact' },
     ],

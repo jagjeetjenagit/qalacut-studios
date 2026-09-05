@@ -2,8 +2,6 @@ import { useState, useMemo, useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import PageWrapper from '../components/PageWrapper'
 import { projects } from '../data/projects'
-import { allVideos } from '../data/videos'
-import { news, formatDate } from '../data/news'
 
 export default function Search() {
   const [params, setParams] = useSearchParams()
@@ -16,7 +14,7 @@ export default function Search() {
   const q = query.trim().toLowerCase()
 
   const results = useMemo(() => {
-    if (!q) return { films: [], videos: [], articles: [] }
+    if (!q) return { films: [] }
     return {
       films: projects.filter(
         (p) =>
@@ -25,16 +23,10 @@ export default function Search() {
           p.category.toLowerCase().includes(q) ||
           p.services.join(' ').toLowerCase().includes(q)
       ),
-      videos: allVideos.filter(
-        (v) => v.title.toLowerCase().includes(q) || v.project.toLowerCase().includes(q)
-      ),
-      articles: news.filter(
-        (n) => n.title.toLowerCase().includes(q) || n.excerpt.toLowerCase().includes(q)
-      ),
     }
   }, [q])
 
-  const total = results.films.length + results.videos.length + results.articles.length
+  const total = results.films.length
 
   const onChange = (e) => {
     const v = e.target.value
@@ -57,7 +49,7 @@ export default function Search() {
               autoFocus
               value={query}
               onChange={onChange}
-              placeholder="Search films, videos, news..."
+              placeholder="Search films..."
               className="w-full border-b-2 border-white/15 bg-transparent py-5 pl-12 pr-4 font-display text-2xl uppercase tracking-tight text-chrome outline-none transition-colors placeholder:text-chrome-dark/40 focus:border-blood md:text-4xl"
             />
           </div>
@@ -92,33 +84,6 @@ export default function Search() {
           </Group>
         )}
 
-        {results.videos.length > 0 && (
-          <Group title="Videos">
-            {results.videos.map((v) => (
-              <ResultRow
-                key={v.id}
-                to={`/videos`}
-                title={v.title}
-                meta={`${v.type} · ${v.project}`}
-                thumb={v.thumb}
-              />
-            ))}
-          </Group>
-        )}
-
-        {results.articles.length > 0 && (
-          <Group title="News">
-            {results.articles.map((n) => (
-              <ResultRow
-                key={n.slug}
-                to={`/news/${n.slug}`}
-                title={n.title}
-                meta={formatDate(n.date)}
-                thumb={n.image}
-              />
-            ))}
-          </Group>
-        )}
       </section>
     </PageWrapper>
   )
